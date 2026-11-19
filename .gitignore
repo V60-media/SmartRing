@@ -1,0 +1,4 @@
+*.blend1
+final/
+scratch*/
+__pycache__/
