@@ -1,0 +1,42 @@
+<!-- Mobile / tablet menu (not in Figma; spec in RESPONSIVE_PLAN.md section 3) -->
+<div class="overlay overlay--menu" id="overlay-menu" aria-hidden="true">
+  <nav class="menu-sheet theme-dark" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="menu-sheet__head">
+      <a class="site-nav__logo" href="#home" aria-label="SeeMyHealth home">{{svg:logo-mark}}</a>
+      <button type="button" class="menu-sheet__close" data-close aria-label="Close menu"><span aria-hidden="true"></span></button>
+    </div>
+    <div class="menu-sheet__body">
+      <section class="menu-group">
+        <h2 class="menu-group__title t-caption">Products</h2>
+        <ul class="t-h6">
+          <li><a href="#product">The Ring One</a></li>
+          <li><a href="#product-detail">Smart Scale</a></li>
+          <li><a href="#product-detail">BP Monitor</a></li>
+          <li><a href="#product-detail">Smart Flask</a></li>
+          <li><a href="#app">The App</a></li>
+        </ul>
+      </section>
+      <section class="menu-group">
+        <h2 class="menu-group__title t-caption">For Business</h2>
+        <ul class="t-lg">
+          <li><a href="#business-providers">Providers</a></li>
+          <li><a href="#business-insurance">Insurance</a></li>
+          <li><a href="#business-distributor">Distributors</a></li>
+        </ul>
+      </section>
+      <section class="menu-group">
+        <h2 class="menu-group__title t-caption">Support</h2>
+        <ul class="t-lg">
+          <li><a href="#device-demo">Device Demo</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#faq-orders">Order &amp; Shipping</a></li>
+          <li><a href="#contact">Get in touch</a></li>
+        </ul>
+      </section>
+    </div>
+    <div class="menu-sheet__foot">
+      <a class="btn btn--blush btn--block" href="#product-detail">Shop The Ring One</a>
+      {{> glass-store-badges}}
+    </div>
+  </nav>
+</div>

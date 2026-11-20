@@ -58,7 +58,7 @@
 .icon-ring--dark { border-color: var(--color-black-30); }
 
 /* ---------- Footer (figma 11654:10170) ---------- */
-.site-footer { background: #262626; color: var(--color-white); padding-top: 6rem; padding-bottom: 4rem; overflow: clip; }
+.site-footer { background: var(--color-surface-footer); color: var(--color-white); padding-top: 6rem; padding-bottom: 4rem; overflow: clip; }
 .site-footer a { transition: opacity .2s; }
 .site-footer a:hover { opacity: 0.6; }
 .site-footer__top { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -78,12 +78,12 @@
 .site-footer__app { width: 26.125rem; display: flex; flex-direction: column; gap: 2rem; }
 .store-badges { display: flex; gap: 1.5rem; }
 .store-badge { position: relative; width: 10.5rem; height: 3.5rem; border-radius: 0.525rem; overflow: clip; display: flex; align-items: center; letter-spacing: 0; }
-.store-badge--apple { background: #000; border: 1.4px solid #a6a6a6; color: #fff; padding-left: 0.9rem; gap: 0.6rem; }
+.store-badge--apple { background: var(--color-bg-dark); border: 1.4px solid var(--color-badge-border); color: var(--color-white); padding-left: 0.9rem; gap: 0.6rem; }
 .store-badge--apple .store-badge__icon { width: 1.75rem; height: 2.1rem; }
 .store-badge--apple span { display: flex; flex-direction: column; }
 .store-badge--apple small { font-size: 0.7875rem; line-height: 0.7875rem; font-weight: 500; }
 .store-badge--apple strong { font-size: 1.575rem; line-height: 1; letter-spacing: -0.026em; font-weight: 500; }
-.store-badge--google { background: #fff; border: 1.4px solid #000; color: #000; padding-left: 0.6125rem; gap: 0.6rem; }
+.store-badge--google { background: var(--color-white); border: 1.4px solid var(--color-bg-dark); color: var(--color-bg-dark); padding-left: 0.6125rem; gap: 0.6rem; }
 .store-badge--google .store-badge__icon { width: 1.8375rem; height: 2.1rem; }
 .store-badge--google span { display: flex; flex-direction: column; gap: 0.2625rem; }
 .store-badge--google small { font-size: 0.875rem; line-height: 1; font-weight: 400; text-transform: uppercase; }
@@ -124,11 +124,18 @@ body.has-overlay { overflow: hidden; }
 .field input, .field textarea, .field select { width: 100%; border: 1px solid var(--color-black-30); background: transparent; border-radius: var(--radius-sm); padding: 1rem 1.25rem; font-size: var(--text-xs-size); line-height: 1.3; font-weight: 400; letter-spacing: 0; }
 .field textarea { min-height: 8rem; resize: vertical; }
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--color-black); }
-.field.is-invalid input, .field.is-invalid textarea { border-color: #b3261e; }
-.field__error { color: #b3261e; font-size: var(--text-caption-size); font-weight: 400; letter-spacing: 0; }
+.field.is-invalid input, .field.is-invalid textarea { border-color: var(--color-error); }
+.field__error { color: var(--color-error); font-size: var(--text-caption-size); font-weight: 400; letter-spacing: 0; }
 
 /* ---------- Typescale QC switch (removed before final) ---------- */
-.ts-switch { position: fixed; right: 1rem; bottom: 1rem; z-index: 200; display: flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgb(20 20 20 / 0.85); backdrop-filter: blur(8px); font: 500 12px/1 system-ui, sans-serif; letter-spacing: 0; color: #fff; box-shadow: 0 4px 20px rgb(0 0 0 / .3); }
+.ts-switch { position: fixed; right: 1rem; bottom: 1rem; z-index: 200; display: flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgb(20 20 20 / 0.85); backdrop-filter: blur(8px); font: 500 12px/1 system-ui, sans-serif; letter-spacing: 0; color: var(--color-white); box-shadow: 0 4px 20px rgb(0 0 0 / .3); }
 .ts-switch button { padding: 8px 12px; border-radius: 999px; opacity: .6; }
-.ts-switch button[aria-pressed="true"] { background: #fff; color: #111; opacity: 1; }
+.ts-switch button[aria-pressed="true"] { background: var(--color-white); color: var(--color-ink-950); opacity: 1; }
 .ts-switch kbd { font: inherit; opacity: .6; padding: 8px 8px 8px 4px; }
+
+/* ---------- Responsive additions (menu button + blush button) ---------- */
+.site-nav__menu { display: none; }
+.overlay--menu { display: none; }
+@media (--bp-below-desktop) { .overlay--menu { display: flex; } }
+.btn--blush { background: var(--color-blush-100); color: var(--color-black); }
+.btn--blush:hover { background: var(--color-blush-400); }

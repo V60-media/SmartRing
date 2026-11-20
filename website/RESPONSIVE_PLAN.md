@@ -1,6 +1,6 @@
 # SeeMyHealth: mobile and tablet responsive plan
 
-Status: **plan, not built yet**. It extends the desktop build described in `BUILD_PLAN.md`.
+Status: **built** (all §9 recommendations accepted). See §10 for what shipped and how it differs from the plan. It extends the desktop build described in `BUILD_PLAN.md`.
 Figma source: section **Mobile Responsive** (`11655:18773`) in file `XKuvVaPoekCESjyfhYw798`.
 
 ## 0. What Figma gives us
@@ -302,3 +302,69 @@ Markup stays the same where possible. Mobile-only elements (menu, sticky buy bar
 5. **Carousels.** Mobile needs real swiping. Make desktop sliders interactive too, for consistency? *Recommend yes.*
 6. **Blush accent.** Confirm `#EBB7BA` / `#FDDBDD` (sampled from Figma) and add them to Figma variables, so Figma and code share the token.
 7. **Outcome panels and colour states.** Mobile shows all 4 outcomes and the Aurora Gold state. Confirm their copy (some Figma text is placeholder and repeats).
+
+---
+
+## 10. Built: what shipped and where it differs
+
+**Decisions applied (§9 recommendations):**
+1. Phones default to the readable set: body 16, secondary 14. Figma's mobile values are one tap away on the QC switch, which now has three states: Auto / Figma / Normalized.
+2. The mobile menu sheet is built as specified in §3.
+3. Tablet uses derived rules.
+4. Tech specs follow each breakpoint's Figma: light cards on phone and tablet, dark olive on desktop.
+5. Carousels are interactive everywhere:
+   - Phone and tablet: native swipe with scroll-snap. Arrows and keyboard arrow keys also move it.
+   - Desktop: the arrows shift the track. The first state is unchanged, so desktop still matches Figma pixel for pixel.
+6. The blush tokens `--color-blush-400 #EBB7BA` and `--color-blush-100 #FDDBDD` are in code. **Still to do in Figma:** add them as variables. I don't edit the design file.
+7. Placeholder copy in the mobile frames was replaced with real copy built from the desktop text. **Review it:**
+   - outcome panels 2–4: Recovery, Balance, Trends
+   - How it works steps: Wear, Sync, Review
+
+**How desktop stays identical:**
+- `tools/split_css.py` moved every desktop geometry declaration into `layout-desktop.css`, inside `@media (--bp-desktop)`. Colour, type and imagery stay shared in `pages.css`.
+- `tools/regress.sh` compares full-page screenshots of all 12 routes at 1280 and 1728 against the pre-change baseline. All 24 are identical; the only masked area is the QC switch.
+
+**Content that exists only below desktop** (hidden ≥ 1280):
+- The three extra outcome panels.
+- The How it works steps, which replace the desktop photo slider as in Figma.
+- The menu sheet.
+
+**Deviations from the Figma mobile frames:**
+- Home final CTA: Figma shows a Ring One card at the bottom. The build shows the product tabs row there instead, because it's the same content as on desktop.
+- Product hero: the price ("From $369.00") is kept, because it matters for buying.
+- Colour switch: the two material cards are hidden on phone and tablet, as in Figma. The "Choose Your Ring" button is kept.
+- Product page order on phone and tablet follows Figma: the colour switch comes before "Clarity, day to night", using CSS `order` with no duplicated markup.
+
+**Engineering changes made along the way:**
+- **SVG sprite:** the logo used to be inlined 35 times (1.7 MB of HTML, with duplicate ids). Each SVG is now defined once and referenced with `<use>`. `index.html` went from 2.0 MB to 0.33 MB.
+- **Responsive images:** `srcset` at 480 / 960 / 1600 px on 94 images. `sizes` keeps the full file at ≥ 1280 px.
+- **Accessibility:**
+  - An open overlay makes the page behind it `inert` and keeps keyboard focus inside the dialog.
+  - Menu buttons update `aria-expanded`.
+  - Carousels have `role="region"` and `aria-roledescription="carousel"` and respond to arrow keys.
+  - The ring colour pills swap the ring image and update its alt text.
+- **Short landscape phones** (height ≤ 520 px) use the phone headline sizes.
+
+**QA results:**
+- `qa.js` passes at 360, 390, 402, 430, 768, 834, 1024, 1180, 1280, 1440 and 1920 px:
+  - no horizontal overflow
+  - tap targets ≥ 44 px
+  - text ≥ 12 px
+  - form fields ≥ 16 px
+  - no raw hex colours
+  - The App Store and Google Play badge micro-text is exempt, because it reproduces the official artwork and the links have accessible names.
+- `interact.js`: all 16 checks pass.
+
+**Page weight:** measured with `tools/weight.js` on a 390 px, 3× phone after scrolling the whole page.
+
+| Page | Total | Images |
+|---|---|---|
+| Home | 2.4 MB | 1.7 MB |
+| Product | 2.1 MB | 1.4 MB |
+
+The ≤ 1.2 MB first-load budget in §6 was not measured separately.
+
+**Not done yet:**
+- Lighthouse and axe-core scans.
+- Testing on a real iOS or Android device (safe areas, 100svh, input zoom).
+- Separate art-directed mobile image exports. Crops currently use `object-position` on the same files.

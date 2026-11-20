@@ -10,7 +10,7 @@
         <p class="eyebrow">The ring one</p>
         <h1 id="product-hero-title" class="t-h1">Sensing, made human.</h1>
       </div>
-      <a class="btn btn--glass" href="#product-detail">Shop Now</a>
+      <a class="btn btn--glass btn--m-blush" href="#product-detail">Shop Now</a>
     </div>
     <div class="abs product-hero__price">
       <p class="t-sm">From</p>
@@ -26,7 +26,7 @@
   <img class="clarity-intro__path clarity-intro__path--1" src="{{img:clarity-path-1}}" alt="" aria-hidden="true">
   <img class="clarity-intro__path clarity-intro__path--2" src="{{img:clarity-path-2}}" alt="" aria-hidden="true">
   <img class="clarity-intro__path clarity-intro__path--3" src="{{img:clarity-path-3}}" alt="" aria-hidden="true">
-  <p class="t-d1 clarity-intro__title">Live in Clarity</p>
+  <p class="t-d1 clarity-intro__title">Live in <span class="clarity-intro__accent">Clarity</span></p>
 </section>
 
 <!-- figma: 11654:11451 The Outcomes - 21 -->
@@ -41,6 +41,52 @@
         <p class="t-h4">Sleep, made consistent.</p>
       </div>
       <p class="t-body">See what actually improves your nights—through patterns, not single scores.See what actually improves your nights—through patterns, not single scores.</p>
+    </div>
+  </div>
+</section>
+
+<!-- figma: Mobile "The Outcomes - 26" (shown below desktop; desktop shows the first state only) -->
+<section class="section theme-dark outcome outcome--more" aria-labelledby="product-outcome-2-title">
+  <img class="bg-cover" src="{{img:outcomes-recovery}}" alt="" loading="lazy">
+  <div class="shade outcome__shade" aria-hidden="true"></div>
+  <div class="outcome__row">
+    <h2 id="product-outcome-2-title" class="outcome__label"><span class="t-lg">2</span><span class="t-h2">Recovery</span></h2>
+    <div class="glass glass--dark outcome__card">
+      <div class="outcome__card-head">
+        <img src="{{img:icon-run}}" alt="" width="48" height="48">
+        <p class="t-h4">Recovery you can act on</p>
+      </div>
+      <p class="t-body">Know when to push and when to rest. Readiness builds from your sleep, heart rate and HRV, so recovery becomes a plan, not a guess.</p>
+    </div>
+  </div>
+</section>
+<!-- figma: Mobile "The Outcomes - 27" (shown below desktop; desktop shows the first state only) -->
+<section class="section theme-dark outcome outcome--more" aria-labelledby="product-outcome-3-title">
+  <img class="bg-cover" src="{{img:outcomes-balance}}" alt="" loading="lazy">
+  <div class="shade outcome__shade" aria-hidden="true"></div>
+  <div class="outcome__row">
+    <h2 id="product-outcome-3-title" class="outcome__label"><span class="t-lg">3</span><span class="t-h2">Balance</span></h2>
+    <div class="glass glass--dark outcome__card">
+      <div class="outcome__card-head">
+        <img src="{{img:icon-balance}}" alt="" width="48" height="48">
+        <p class="t-h4">A calmer view of your day</p>
+      </div>
+      <p class="t-body">Stress, activity and rest in one quiet daily read—so you notice what drains you and what restores you.</p>
+    </div>
+  </div>
+</section>
+<!-- figma: Mobile "The Outcomes - 28" (shown below desktop; desktop shows the first state only) -->
+<section class="section theme-dark outcome outcome--more" aria-labelledby="product-outcome-4-title">
+  <img class="bg-cover" src="{{img:outcomes-trends}}" alt="" loading="lazy">
+  <div class="shade outcome__shade" aria-hidden="true"></div>
+  <div class="outcome__row">
+    <h2 id="product-outcome-4-title" class="outcome__label"><span class="t-lg">4</span><span class="t-h2">Trends</span></h2>
+    <div class="glass glass--dark outcome__card">
+      <div class="outcome__card-head">
+        <img src="{{img:icon-trends}}" alt="" width="48" height="48">
+        <p class="t-h4">Your baseline, over time</p>
+      </div>
+      <p class="t-body">Patterns across weeks show what is normal for you, and gently flag when something shifts.</p>
     </div>
   </div>
 </section>
@@ -63,6 +109,19 @@
     </ul>
     <div class="abs how-it-works__controls">{{> slider-controls-glass}}</div>
   </div>
+    <!-- figma: Mobile "How - 6" (shown below desktop) -->
+    <div class="how-steps-wrap">
+      <img class="how-steps__arcs" src="{{img:how-step-arcs}}" alt="" aria-hidden="true">
+      <div class="how-steps__head">
+        <h2 class="t-h2">How it works</h2>
+        <p class="t-body">A smart ring designed for daily wear—three steps, no setup stress.</p>
+      </div>
+      <ol class="how-steps">
+        <li class="how-step"><span class="how-step__num">1</span><img class="how-step__art" src="{{img:how-step-wear}}" alt=""><div><h3 class="t-lg">Wear</h3><p class="t-xs">Wear it day and night on your index finger, sensors facing down.</p></div></li>
+        <li class="how-step"><span class="how-step__num">2</span><img class="how-step__art" src="{{img:how-step-sync}}" alt=""><div><h3 class="t-lg">Sync</h3><p class="t-xs">Place it on the charger, enable Bluetooth, and the app syncs automatically.</p></div></li>
+        <li class="how-step"><span class="how-step__num">3</span><img class="how-step__art how-step__art--wide" src="{{img:how-step-review}}" alt=""><div><h3 class="t-lg">Review</h3><p class="t-xs">See what actually improves your nights—through patterns, not single scores.</p></div></li>
+      </ol>
+    </div>
 </section>
 
 <!-- figma: 11654:11524 What it does for you -->
@@ -82,10 +141,10 @@
   <div class="canvas mood__canvas">
     <h2 id="product-mood-title" class="abs t-h2 mood__title">Switch The Mood</h2>
     <div class="abs mood__swatches" data-option-group="product-color" role="group" aria-label="Ring colour">
-      <button class="pill pill--white" type="button" data-option="Phantom Black" aria-pressed="true"><img src="{{img:swatch-black}}" alt="">Phantom Black</button>
-      <button class="pill pill--glass" type="button" data-option="Aurora Gold" aria-pressed="false"><img src="{{img:swatch-gold}}" alt="">Aurora Gold</button>
+      <button class="pill pill--white" type="button" data-option="Phantom Black" data-img="{{img:ring-phantom-profile}}" aria-pressed="true"><img src="{{img:swatch-black}}" alt="">Phantom Black</button>
+      <button class="pill pill--glass" type="button" data-option="Aurora Gold" data-img="{{img:ring-aurora-profile}}" aria-pressed="false"><img src="{{img:swatch-gold}}" alt="">Aurora Gold</button>
     </div>
-    <figure class="abs mood__ring"><img src="{{img:ring-phantom-profile}}" alt="The Ring One in Phantom Black, side profile" loading="lazy"></figure>
+    <figure class="abs mood__ring"><img src="{{img:ring-phantom-profile}}" data-option-img="product-color" alt="The Ring One in Phantom Black, side profile" loading="lazy"></figure>
     <div class="abs glass mood__card mood__card--left">
       <p class="mood__card-head t-body"><img src="{{img:icon-diamond}}" alt="">Material Finish</p>
       <hr class="rule">
@@ -117,7 +176,7 @@
         <h2 id="product-cta-title" class="t-h4">Wear the ring. Keep the clarity.</h2>
         <p class="t-body">A calmer way to stay aware. Continuous tracking, distilled into a simple daily read you can return to.</p>
       </div>
-      <a class="btn btn--glass" href="#product-detail">Shop Now</a>
+      <a class="btn btn--glass btn--m-blush" href="#product-detail">Shop Now</a>
     </div>
     <div class="ring-cta__aside">
       <p class="t-h6">Zero Friction</p>

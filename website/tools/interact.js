@@ -1,0 +1,51 @@
+// Functional checks for responsive interactions. usage: node interact.js
+const { chromium } = require('playwright');
+(async () => {
+  const b = await chromium.launch(); const out = []; let fail = 0;
+  const ok = (cond, msg) => { out.push((cond ? 'ok   ' : 'FAIL ') + msg); if (!cond) fail++; };
+  // phone
+  let p = await b.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true });
+  const errs = []; p.on('pageerror', e => errs.push(String(e)));
+  await p.goto('http://localhost:8765/#home'); await p.waitForTimeout(300);
+  await p.click('.page:not([hidden]) .site-nav__menu');
+  await p.waitForTimeout(350);
+  ok(await p.evaluate(() => document.getElementById('overlay-menu').classList.contains('is-open')), 'menu opens');
+  ok(await p.evaluate(() => document.getElementById('app').inert === true), 'page behind menu is inert');
+  ok(await p.evaluate(() => document.querySelector('.page:not([hidden]) .site-nav__menu').getAttribute('aria-expanded') === 'true'), 'menu button aria-expanded=true');
+  await p.keyboard.press('Escape'); await p.waitForTimeout(350);
+  ok(await p.evaluate(() => !document.getElementById('overlay-menu').classList.contains('is-open') && document.activeElement.classList.contains('site-nav__menu')), 'Esc closes menu and returns focus');
+  await p.click('.page:not([hidden]) .site-nav__menu'); await p.waitForTimeout(300);
+  await p.click('#overlay-menu a[href="#faq"]'); await p.waitForTimeout(400);
+  ok(await p.evaluate(() => location.hash === '#faq' && !document.getElementById('overlay-menu').classList.contains('is-open')), 'menu link navigates and closes');
+  await p.goto('http://localhost:8765/#home'); await p.evaluate(() => scrollTo(0, 400)); await p.waitForTimeout(300);
+  ok(await p.evaluate(() => document.body.classList.contains('is-scrolled')), 'nav condenses on scroll');
+  await p.goto('http://localhost:8765/#product'); await p.waitForTimeout(300);
+  const track = '.page:not([hidden]) .clarity-cards';
+  await p.evaluate(t => document.querySelector(t).scrollIntoView(), track);
+  const before = await p.evaluate(t => document.querySelector(t).scrollLeft, track);
+  await p.click('.page:not([hidden]) .clarity-slider__controls [aria-label^="Next"]'); await p.waitForTimeout(700);
+  const after = await p.evaluate(t => document.querySelector(t).scrollLeft, track);
+  ok(after > before, `phone carousel next scrolls (${before} -> ${Math.round(after)})`);
+  ok(await p.evaluate(t => getComputedStyle(document.querySelector(t)).scrollSnapType.includes('x'), track), 'phone carousel uses scroll-snap');
+  await p.evaluate(() => document.querySelector('.page:not([hidden]) .mood').scrollIntoView());
+  await p.click('.page:not([hidden]) [data-option="Aurora Gold"]'); await p.waitForTimeout(200);
+  ok(await p.evaluate(() => document.querySelector('.page:not([hidden]) [data-option-img]').src.includes('aurora')), 'colour switch swaps ring image');
+  await p.goto('http://localhost:8765/#product-detail'); await p.waitForTimeout(300);
+  ok(await p.evaluate(() => { const s = document.querySelector('.page:not([hidden]) .pd-sticky'); const r = s.getBoundingClientRect(); return getComputedStyle(s).position === 'fixed' && Math.round(r.bottom) === innerHeight; }), 'PD add-to-cart bar fixed at bottom');
+  await p.click('.page:not([hidden]) .pd-sticky__btn'); await p.waitForTimeout(400);
+  ok(await p.evaluate(() => document.getElementById('overlay-cart').classList.contains('is-open')), 'add to cart opens cart sheet');
+  await p.close();
+  // desktop: arrows shift the track, first state unchanged before click
+  p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+  p.on('pageerror', e => errs.push(String(e)));
+  await p.goto('http://localhost:8765/#product'); await p.waitForTimeout(300);
+  ok(await p.evaluate(() => getComputedStyle(document.querySelector('.page:not([hidden]) .site-nav__menu')).display === 'none'), 'desktop hides menu button');
+  ok(await p.evaluate(() => (document.querySelector('.page:not([hidden]) .clarity-cards').style.translate || '') === ''), 'desktop carousel starts at designed state');
+  await p.evaluate(() => document.querySelector('.page:not([hidden]) .clarity-slider').scrollIntoView());
+  await p.click('.page:not([hidden]) .clarity-slider__controls [aria-label^="Next"]'); await p.waitForTimeout(700);
+  ok(await p.evaluate(() => /-\d/.test(document.querySelector('.page:not([hidden]) .clarity-cards').style.translate)), 'desktop next arrow shifts the track');
+  ok(await p.evaluate(() => getComputedStyle(document.querySelector('.page:not([hidden]) .outcome--more')).display === 'none'), 'desktop hides mobile-only outcome panels');
+  ok(errs.length === 0, 'no page errors' + (errs.length ? ': ' + errs.join(' | ') : ''));
+  console.log(out.join('\n')); console.log(fail ? `${fail} failed` : 'all interaction checks passed');
+  await b.close(); process.exit(fail ? 1 : 0);
+})();

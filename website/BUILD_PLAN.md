@@ -1,7 +1,7 @@
 # SeeMyHealth: Figma → website build plan
 
 Source: Figma `XKuvVaPoekCESjyfhYw798`, page `2:3` (🎨 Design). Sections in scope: **Dekstop Version** (`11654:10501`) and **Sub Pages** (`11655:13457`).
-Out of scope (as requested): **Mobile Responsive** (`11655:18773`) and the human checkpoints.
+Mobile Responsive (`11655:18773`) was built later; see `RESPONSIVE_PLAN.md`. The human checkpoints were skipped, as requested.
 
 Target: one multi-file **Claude artifact** with hash routing, plus this source folder.
 Stack: plain HTML, CSS and vanilla JS, assembled by `tools/build.py` into `dist/`.
@@ -83,4 +83,4 @@ About 190 files exported from Figma (`assets/_raw`, not committed, ≈124 MB). T
 5. **Video pop-up:** Figma has no video file, so it shows the still frame with static controls.
 6. **No backend:** the forms validate and show an in-page confirmation, and checkout shows a notice. The cart persists in `localStorage`.
 7. Partner and hospital logos and claims ("Trusted by top organizations") are kept as designed. Verify the partnerships before publishing externally.
-8. Mobile and tablet are not built (out of scope). The layout scales proportionally on desktop widths only.
+8. Mobile and tablet were added later. See `RESPONSIVE_PLAN.md`. Desktop (≥ 1280) is unchanged.

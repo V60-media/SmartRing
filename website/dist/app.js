@@ -71,6 +71,8 @@
     o.classList.add("is-open");
     o.setAttribute("aria-hidden", "false");
     document.body.classList.add("has-overlay");
+    var appRoot = document.getElementById("app"); if (appRoot) appRoot.inert = true;
+    $$('[aria-controls="overlay-' + name + '"]').forEach(function (b) { b.setAttribute("aria-expanded", "true"); });
     var f = $("[autofocus], button, a, input", o.querySelector(".panel") || o);
     if (f) setTimeout(function () { f.focus(); }, 50);
     if (name === "video") { var v = $("video", o); if (v) { try { v.play(); } catch (e) {} } }
@@ -85,6 +87,8 @@
       var v = $("video", o); if (v) v.pause();
     });
     document.body.classList.remove("has-overlay");
+    var appRoot = document.getElementById("app"); if (appRoot) appRoot.inert = false;
+    $$('[aria-controls^="overlay-"][aria-expanded="true"]').forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
     if (lastFocus && lastFocus.focus) { lastFocus.focus(); lastFocus = null; }
   }
 
@@ -109,6 +113,12 @@
       $$("[data-option]", group).forEach(function (b) { b.setAttribute("aria-pressed", String(b === opt)); });
       var label = group && group.dataset.optionGroup && document.querySelector('[data-option-label="' + group.dataset.optionGroup + '"]');
       if (label) label.textContent = opt.dataset.option;
+      if (opt.dataset.img && group) {
+        $$('[data-option-img="' + group.dataset.optionGroup + '"]').forEach(function (img) {
+          img.src = opt.dataset.img;
+          img.alt = "The Ring One in " + opt.dataset.option + ", side profile";
+        });
+      }
       return;
     }
     var qty = t.closest("[data-qty]");
@@ -118,6 +128,18 @@
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") closeAll();
+    // keep keyboard focus inside an open dialog
+    if (e.key === "Tab") {
+      var openO = $(".overlay.is-open");
+      if (openO) {
+        var f = $$('a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])', openO).filter(function (x) { return x.offsetParent !== null; });
+        if (f.length) {
+          var first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      }
+    }
     if ((e.metaKey || e.ctrlKey) && e.key === "\\") { e.preventDefault(); toggleTypescale(); }
   });
 
@@ -204,10 +226,87 @@
     $$("[data-typescale-set]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.typescaleSet === v)); });
     store.set("smh-typescale", v);
   }
-  function toggleTypescale() { setTypescale(document.documentElement.dataset.typescale === "figma" ? "normalized" : "figma"); }
+  var TS_ORDER = ["auto", "figma", "normalized"];
+  function toggleTypescale() { var i = TS_ORDER.indexOf(document.documentElement.dataset.typescale); setTypescale(TS_ORDER[(i + 1) % TS_ORDER.length]); }
   $$("[data-typescale-set]").forEach(function (b) { b.addEventListener("click", function () { setTypescale(b.dataset.typescaleSet); }); });
   var kbd = $(".ts-switch kbd"); if (kbd && !/Mac|iP/.test(navigator.platform)) kbd.textContent = "Ctrl+\\";
-  setTypescale(store.get("smh-typescale") || "figma");
+  var savedTs = store.get("smh-typescale");
+  setTypescale(TS_ORDER.indexOf(savedTs) > -1 ? savedTs : "auto");
+
+  /* ---------------- Nav state on scroll (mobile/tablet condense + solid) ---------------- */
+  var scrolledTick = false;
+  function onScroll() {
+    if (scrolledTick) return;
+    scrolledTick = true;
+    requestAnimationFrame(function () { document.body.classList.toggle("is-scrolled", window.scrollY > 8); scrolledTick = false; });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* ---------------- Carousels ----------------
+     < 1280px: the track is a native scroll-snap row (swipe); arrows scroll it.
+     >= 1280px: the designed first state is unchanged; arrows shift the track with `translate`. */
+  var CAROUSELS = [
+    [".clarity-slider", ".clarity-cards"], [".how-it-works", ".how-cards"], [".track", ".track__rail"],
+    [".seg", ".seg__cards"], [".eco", ".eco__grid"], [".other-products", ".other-products__grid"],
+    [".home-community", ".partner-grid"], [".cart", ".cart__rail"]
+  ];
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function initCarousel(root, track) {
+    if (track.dataset.carousel) return;
+    track.dataset.carousel = "on";
+    track.setAttribute("role", "region");
+    track.setAttribute("aria-roledescription", "carousel");
+    if (!track.hasAttribute("aria-label")) track.setAttribute("aria-label", "Slides");
+    track.tabIndex = 0;
+    var prev = $('[aria-label^="Previous"], [data-carousel-prev]', root);
+    var next = $('[aria-label^="Next"], [data-carousel-next]', root);
+    var dots = $$(".dots-pill img", root);
+    var activeDot = Math.max(0, dots.findIndex(function (d) { return d.classList.contains("is-active"); }));
+    var srcActive = dots[activeDot] ? dots[activeDot].getAttribute("src") : null;
+    var srcIdle = dots.filter(function (d, i) { return i !== activeDot; }).map(function (d) { return d.getAttribute("src"); })[0];
+    var shift = 0;
+    function items() { return Array.prototype.slice.call(track.children); }
+    function step() {
+      var it = items(); if (it.length < 2) return 0;
+      return it[1].getBoundingClientRect().left - it[0].getBoundingClientRect().left;
+    }
+    function scrollMode() { var cs = getComputedStyle(track); return cs.overflowX === "auto" || cs.overflowX === "scroll"; }
+    function setDots(i) {
+      if (!dots.length || !srcActive) return;
+      var d = Math.min(dots.length - 1, Math.max(0, activeDot + i));
+      dots.forEach(function (img, k) { img.classList.toggle("is-active", k === d); img.setAttribute("src", k === d ? srcActive : srcIdle); });
+    }
+    function go(dir) {
+      var s = step(); if (!s) return;
+      if (scrollMode()) { track.scrollBy({ left: dir * s, behavior: reduceMotion ? "auto" : "smooth" }); return; }
+      // desktop: bound the shift so cards never leave a gap at either edge
+      var vw = document.documentElement.clientWidth;
+      var it = items();
+      var before = it.filter(function (el) { return el.getBoundingClientRect().left - shift * s < 0; }).length;
+      var after = it.filter(function (el) { return el.getBoundingClientRect().right - shift * s > vw; }).length;
+      shift = Math.max(-after, Math.min(before, shift - dir));
+      track.style.transition = reduceMotion ? "none" : "translate .5s cubic-bezier(.2,.7,.2,1)";
+      track.style.translate = (shift * s) + "px 0";
+      setDots(-shift);
+    }
+    if (prev) prev.addEventListener("click", function () { go(-1); });
+    if (next) next.addEventListener("click", function () { go(1); });
+    track.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+    });
+    track.addEventListener("scroll", function () {
+      var s = step(); if (s) setDots(Math.round(track.scrollLeft / s));
+    }, { passive: true });
+  }
+  CAROUSELS.forEach(function (c) {
+    $$(c[0]).forEach(function (root) { var t = $(c[1], root); if (t) initCarousel(root, t); });
+  });
+  // leaving desktop resets any desktop shift so the swipe row starts at the first card
+  var mqDesktop = window.matchMedia("(min-width: 1280px)");
+  (mqDesktop.addEventListener ? mqDesktop.addEventListener.bind(mqDesktop, "change") : mqDesktop.addListener.bind(mqDesktop))(function () {
+    $$("[data-carousel]").forEach(function (t) { t.style.translate = ""; t.scrollLeft = 0; });
+  });
 
   renderCart();
   route();
