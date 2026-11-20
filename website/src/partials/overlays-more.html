@@ -1,0 +1,37 @@
+<!-- figma: 11654:13498 Contact Us (drawer) / 11654:13573 Contact Us_Pop up -->
+<div class="overlay overlay--drawer" id="overlay-contact" aria-hidden="true">
+  <section class="panel panel--drawer contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+    <div class="panel__head contact__head"><h2 id="contact-title" class="t-xl">Contact us</h2><button type="button" class="panel__close-btn" data-close>Close</button></div>
+    <form class="contact__form" data-form novalidate>
+      <div class="cfield"><label for="c-name" class="t-xs">Full name (*)</label><input id="c-name" name="name" type="text" placeholder="Your full name" required autocomplete="name"></div>
+      <div class="cfield"><label for="c-email" class="t-xs">Email address (*)</label><input id="c-email" name="email" type="email" placeholder="Your email address" required autocomplete="email"></div>
+      <div class="cfield cfield--select"><label for="c-topic" class="t-xs">How can we help you? (*)</label>
+        <select id="c-topic" name="topic" required><option value="" selected disabled>Service request</option><option>Product question</option><option>Order &amp; shipping</option><option>Warranty &amp; support</option><option>Partnerships</option><option>Become a distributor</option></select>
+        <img src="{{img:icon-caret-down}}" alt=""></div>
+      <div class="cfield"><label for="c-msg" class="t-xs">Message (*)</label><textarea id="c-msg" name="message" placeholder="Your message" rows="4" required></textarea></div>
+      <hr class="rule contact__rule">
+      <label class="check t-xs"><input type="checkbox" checked><span class="check__box" aria-hidden="true"><img src="{{img:icon-check-white}}" alt=""></span>Subscribe to our newsletter</label>
+      <div class="field"><label class="check t-xs"><input type="checkbox" required><span class="check__box" aria-hidden="true"><img src="{{img:icon-check-white}}" alt=""></span><span>I accept the <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy.</a></span></label></div>
+      <button type="submit" class="btn btn--dark btn--block contact__submit">Submit message</button>
+    </form>
+    <div class="contact__done" data-form-done hidden><p class="t-xl">Thanks — we’ll be in touch.</p><p class="t-body">This prototype doesn’t send messages; nothing was submitted.</p></div>
+    <dl class="contact__details t-xs">
+      <div><dt>Contact details</dt><dd><span>+44 (0) 117 373 9192</span><a href="mailto:support@myhealthai.com">support@myhealthai.com</a></dd></div>
+      <div><dt>Our offices</dt><dd><span>Unit 2, Gateway 12 Business Park,<br>Davy Way, Gloucester, GL2 2BY,<br>United Kingdom</span><a class="contact__link" href="https://maps.google.com/?q=Gateway+12+Business+Park+Gloucester+GL2+2BY">Google Maps <img src="{{img:icon-arrow-right-20}}" alt=""></a></dd></div>
+      <div><dt>Social</dt><dd class="contact__social"><a href="https://www.instagram.com/">Instagram <img src="{{img:icon-arrow-right-20}}" alt=""></a><a href="https://www.facebook.com/">Facebook <img src="{{img:icon-arrow-right-20}}" alt=""></a><a href="https://www.linkedin.com/">Linkedin <img src="{{img:icon-arrow-right-20}}" alt=""></a></dd></div>
+    </dl>
+  </section>
+</div>
+
+<!-- figma: 11654:15608 Video Pop up (no video file in Figma: still frame + controls) -->
+<div class="overlay video-overlay" id="overlay-video" aria-hidden="true">
+  <section class="video-panel theme-dark" role="dialog" aria-modal="true" aria-labelledby="video-title">
+    <img class="bg-cover" src="{{img:demo-pairing}}" alt="">
+    <div class="shade" style="background: rgb(0 0 0 / 0.25)" aria-hidden="true"></div>
+    <div class="shade-bottom" style="--h: 32.5rem; --a: 0.7" aria-hidden="true"></div>
+    <button type="button" class="panel__close-btn video-panel__close" data-close>Close</button>
+    <div class="video-panel__copy"><span class="glass how-card__tag t-body">Pairing</span><h2 id="video-title" class="t-xl">Connect in One Tap</h2><p class="t-body">Place your ring on the charger, enable Bluetooth, and sync instantly via our app.</p></div>
+    <img class="video-panel__progress" src="{{img:video-progress}}" alt="">
+    <div class="video-panel__controls"><div class="video-panel__left"><button type="button" aria-label="Pause"><img src="{{img:icon-pause}}" alt=""></button><span class="video-panel__vol"><img src="{{img:icon-speaker}}" alt=""><img class="video-panel__vol-bar" src="{{img:video-volume}}" alt=""></span></div><span class="t-btn1">00:01:35</span></div>
+  </section>
+</div>

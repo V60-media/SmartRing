@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" data-typescale="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>SeeMyHealth — Empower your daily health</title>
+<meta name="description" content="SeeMyHealth smart ring, app and connected devices: clarity for your body, every day.">
+<link rel="preload" href="assets/fonts/OverusedGrotesk-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/OverusedGrotesk-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="sr-only" href="#app">Skip to content</a>
+<div id="app">
+{{pages}}
+</div>
+{{> overlays}}
+{{> mobile-menu}}
+<!-- QC: typescale switch (Cmd/Ctrl + \). Remove before final hand-off. -->
+<div class="ts-switch" role="group" aria-label="Typescale">
+  <button type="button" data-typescale-set="auto" aria-pressed="true" title="Figma on desktop, readable set on phones">Auto</button>
+  <button type="button" data-typescale-set="figma" aria-pressed="false">Figma</button>
+  <button type="button" data-typescale-set="normalized" aria-pressed="false">Normalized</button>
+  <kbd>⌘\</kbd>
+</div>
+<script>window.ROUTE_META = {{routeMeta}};</script>
+<script src="app.js"></script>
+</body>
+</html>

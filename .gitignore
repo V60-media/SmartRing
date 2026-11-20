@@ -2,3 +2,7 @@
 final/
 scratch*/
 __pycache__/
+
+# website: raw Figma exports are large; optimised copies live in website/dist/assets/img
+website/assets/_raw/
+node_modules/
