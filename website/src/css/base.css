@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Base: reset, fluid root, type roles, layout primitives
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html {
+  /* 1rem = 16px on the 1728px design canvas; scales with the viewport. */
+  font-size: clamp(9px, calc(100vw / 108), 17.78px);
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  letter-spacing: var(--text-body-ls);
+  font-weight: 500;
+  color: var(--color-black);
+  background: var(--color-bg-dark);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img, svg, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul, ol { list-style: none; }
+input, textarea, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--color-brown-300); outline-offset: 3px; border-radius: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Type roles ---------- */
+.t-h1, .t-h2, .t-h3, .t-h4, .t-h5, .t-h6, .t-lg, .t-md, .t-sm { font-weight: 600; }
+/* display + xl */
+.t-d1 { font-weight: 600; font-size: var(--text-d1-size); line-height: var(--text-d1-lh); letter-spacing: var(--text-d1-ls); }
+.t-xl { font-weight: 600; font-size: var(--text-xl-size); line-height: var(--text-xl-lh); letter-spacing: var(--text-xl-ls); }
+.t-h1 { font-size: var(--text-h1-size); line-height: var(--text-h1-lh); letter-spacing: var(--text-h1-ls); }
+.t-h2 { font-size: var(--text-h2-size); line-height: var(--text-h2-lh); letter-spacing: var(--text-h2-ls); }
+.t-h3 { font-size: var(--text-h3-size); line-height: var(--text-h3-lh); letter-spacing: var(--text-h3-ls); }
+.t-h4 { font-size: var(--text-h4-size); line-height: var(--text-h4-lh); letter-spacing: var(--text-h4-ls); }
+.t-h5 { font-size: var(--text-h5-size); line-height: var(--text-h5-lh); letter-spacing: var(--text-h5-ls); }
+.t-h6 { font-size: var(--text-h6-size); line-height: var(--text-h6-lh); letter-spacing: var(--text-h6-ls); }
+.t-lg { font-size: var(--text-lg-size); line-height: var(--text-lg-lh); letter-spacing: var(--text-lg-ls); }
+.t-md { font-size: var(--text-md-size); line-height: var(--text-md-lh); letter-spacing: var(--text-md-ls); }
+.t-sm { font-size: var(--text-sm-size); line-height: var(--text-sm-lh); letter-spacing: var(--text-sm-ls); }
+.t-body { font-size: var(--text-body-size); line-height: var(--text-body-lh); letter-spacing: var(--text-body-ls); font-weight: 500; }
+.t-xs { font-size: var(--text-xs-size); line-height: var(--text-xs-lh); letter-spacing: var(--text-xs-ls); font-weight: 400; }
+.t-caption { font-size: var(--text-caption-size); line-height: var(--text-caption-lh); letter-spacing: var(--text-caption-ls); font-weight: 400; }
+.t-muted-dark { color: var(--color-white-40); }
+.t-muted-light { color: var(--color-black-60); }
+.t-center { text-align: center; }
+
+/* ---------- Layout ---------- */
+.container { width: 100%; max-width: calc(var(--container) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
+.page[hidden] { display: none !important; }
+.theme-dark { background: var(--color-bg-dark); color: var(--color-white); }
+.theme-light { background: var(--color-bg-light); color: var(--color-black); }
+.section { position: relative; overflow: clip; }
+.section--screen { min-height: var(--section-h); }
+.bg-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.rule { height: 1px; background: currentColor; opacity: 0.3; border: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* Figma text boxes are trimmed to cap-height/baseline; mirror that so spacing matches. */
+h1, h2, h3, h4, h5, h6, p, li, dt, dd, .btn, .eyebrow, .link-arrow > span, .tb { text-box: trim-both cap alphabetic; }
+
+/* Fixed-proportion art-directed canvas: 108rem = the 1728px design width. */
+.canvas { position: relative; width: 108rem; margin-inline: auto; }
+.abs { position: absolute; }
+/* lists: trim the list box, not each item, so line-height stacks normally */
+.bullets { text-box: trim-both cap alphabetic; }
+.bullets li { text-box: none; }

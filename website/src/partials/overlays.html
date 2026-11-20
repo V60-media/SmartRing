@@ -1,0 +1,69 @@
+<!-- figma: 11654:13177 Cart_Empty state + 11654:13408 Add to cart (drawer) -->
+<div class="overlay overlay--drawer" id="overlay-cart" aria-hidden="true">
+  <section class="panel panel--drawer cart" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="panel__head">
+      <h2 id="cart-title" class="t-xl">Cart<span data-cart-heading-count></span></h2>
+      <button type="button" class="panel__close-btn" data-close>Close</button>
+    </div>
+
+    <div class="cart__empty" data-cart-empty>
+      <div class="cart__empty-msg"><p class="t-xl">Your cart is empty</p><p class="t-xl t-faint-40">Explore our products</p></div>
+      <div class="cart__rail-head t-body"><span>01 <span class="t-faint-40">— 04</span></span><span class="cart__rail-nav"><span class="t-faint-40">Prev</span> / <span>Next</span></span></div>
+      <ul class="cart__rail">
+        <li class="cart-tile"><img class="cart-tile__ring" src="{{img:ring-phantom-profile}}" alt=""><hr class="rule"><p class="t-sm">The Ring One</p><p class="t-sm t-faint-40">$369.00</p><a class="cart-tile__go" href="#product-detail" data-close aria-label="Shop The Ring One"><img src="{{img:icon-arrow-right-dark}}" alt=""></a></li>
+        <li class="cart-tile"><img class="cart-tile__img" src="{{img:product-scale}}" alt=""><hr class="rule"><p class="t-sm">Smart Scale</p><p class="t-sm t-faint-40">$199.25</p><a class="cart-tile__go" href="#product-detail" data-close aria-label="Shop Smart Scale"><img src="{{img:icon-arrow-right-dark}}" alt=""></a></li>
+        <li class="cart-tile"><img class="cart-tile__img" src="{{img:product-bp}}" alt=""><hr class="rule"><p class="t-sm">BP Monitor</p><p class="t-sm t-faint-40">$124.99</p><a class="cart-tile__go" href="#product-detail" data-close aria-label="Shop BP Monitor"><img src="{{img:icon-arrow-right-dark}}" alt=""></a></li>
+        <li class="cart-tile"><img class="cart-tile__img" src="{{img:product-flask}}" alt=""><hr class="rule"><p class="t-sm">Smart Flask</p><p class="t-sm t-faint-40">$44.95</p><a class="cart-tile__go" href="#product-detail" data-close aria-label="Shop Smart Flask"><img src="{{img:icon-arrow-right-dark}}" alt=""></a></li>
+      </ul>
+    </div>
+
+    <div class="cart__full" data-cart-full hidden>
+      <ul class="cart__lines" data-cart-lines></ul>
+      <div class="cart__foot">
+        <p class="cart__subtotal t-sm"><span>Subtotal (<span data-cart-items>0</span> item)</span><span data-cart-subtotal>$0</span></p>
+        <button type="button" class="btn btn--dark btn--block" data-open="checkout-note">Proceed to Checkout</button>
+        <p class="t-xs">Shipping fees and taxes are calculated at checkout</p>
+      </div>
+    </div>
+  </section>
+</div>
+<template id="tpl-cart-line">
+  <li class="cart-line">
+    <span class="cart-line__media"><img data-f="img" src="" alt=""></span>
+    <div class="cart-line__info"><p class="t-sm" data-f="name"></p><p class="t-xs" data-f="variant"></p></div>
+    <div class="cart-line__qty">
+      <span class="qty"><button type="button" data-qty="-1" aria-label="Decrease quantity"><img src="{{img:icon-minus-20}}" alt=""></button><span class="t-body" data-f="qty">1</span><button type="button" data-qty="1" aria-label="Increase quantity"><img src="{{img:icon-plus-20}}" alt=""></button></span>
+      <button type="button" class="qty-trash" data-qty="-999" aria-label="Remove item"><img src="{{img:icon-trash}}" alt=""></button>
+    </div>
+    <p class="cart-line__price t-body" data-f="price"></p>
+  </li>
+</template>
+
+<!-- checkout is out of scope: confirm in-page instead of navigating -->
+<div class="overlay overlay--center" id="overlay-checkout-note" aria-hidden="true">
+  <section class="panel note-panel" role="dialog" aria-modal="true" aria-labelledby="checkout-note-title">
+    <h2 id="checkout-note-title" class="t-xl">Checkout</h2>
+    <p class="t-body">Checkout isn’t part of this prototype. Your cart is saved in this browser.</p>
+    <button type="button" class="btn btn--dark" data-close>Back to shopping</button>
+  </section>
+</div>
+
+<!-- figma: 11654:12563 Ring Sizing Instructions_Pop up -->
+<div class="overlay overlay--drawer" id="overlay-sizing" aria-hidden="true">
+  <section class="panel panel--drawer sizing" role="dialog" aria-modal="true" aria-labelledby="sizing-title">
+    <div class="sizing__media"><img src="{{img:sizing-kit}}" alt="Hand wearing a ring next to an open sizing kit"><span class="round-btn round-glass sizing__play" aria-hidden="true"><img src="{{img:icon-play}}" alt=""></span></div>
+    <div class="sizing__body">
+      <div class="sizing__head"><h2 id="sizing-title" class="t-h6">How ring sizing works</h2><button type="button" class="panel__close-btn" data-close>Close</button></div>
+      <p class="t-xs sizing__lede">Ring PRO uses custom sizes, distinct from standard smart ring and market sizes. A precise fit is essential for accurate data tracking and comfort.</p>
+      <ol class="sizing__steps">
+        <li><img src="{{img:icon-cart-dark}}" alt=""><h3 class="t-sm">Step 1: Order your Ring One</h3><p class="t-xs">Select the 'Free Sizing Kit' option when you order your Ring One. You're purchasing the Ring One, but we’ll send you the sizing kit first at no extra cost.</p></li>
+        <li><img src="{{img:icon-package}}" alt=""><h3 class="t-sm">Step 2: Sizing kit delivery</h3><p class="t-xs">Most orders are processed and delivered within 3 days. This kit includes sample ring sizers to help find your ideal fit.</p></li>
+        <li><img src="{{img:icon-thumbs-up}}" alt=""><h3 class="t-sm">Step 3: Find your perfect fit</h3><p class="t-xs">Test the sample rings on your preferred finger. We recommend the index finger for optimal performance and accuracy. If you prefer another finger, the middle and ring fingers are good alternatives.</p></li>
+        <li><img src="{{img:icon-check-circle}}" alt=""><h3 class="t-sm">Step 4: Submit your ring size</h3><p class="t-xs">Confirm your size by visiting the link on the sizing kit’s packaging, and we will ship your Ring One to you. Feel free to share your sizing kit with friends and family.</p></li>
+      </ol>
+      <p class="t-xs t-faint-40 sizing__note">* Choosing the right Ring One size is essential for comfort and accurate readings. Ring One sizing is unique in comparison to the US Standard.</p>
+    </div>
+  </section>
+</div>
+
+{{> overlays-more}}

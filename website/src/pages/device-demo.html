@@ -1,0 +1,44 @@
+<!-- meta title="Device Demo | SeeMyHealth" description="Discover how simple it is to set up, connect, and optimize your SeeMyHealth devices in just a few minutes." nav="light" -->
+<!-- figma: 11654:15484 Device Demo -->
+
+<!-- figma: 11654:15485 Device Demo -->
+<section class="section theme-light demo" aria-labelledby="demo-title">
+  <div class="container demo__inner">
+    <div class="demo__head">
+      <h1 id="demo-title" class="t-h2">Health tracking, made effortless</h1>
+      <p class="t-body">Discover how simple it is to set up, connect, and optimize your SeeMyHealth devices in just a few minutes.</p>
+    </div>
+    <div class="demo__filter" data-option-group="demo-cat" role="group" aria-label="Product categories">
+      <p class="t-sm">Product Categories</p>
+      <div class="demo__cats t-sm">
+        <button type="button" data-option="The Ring One" aria-pressed="true">The Ring One</button><span aria-hidden="true">.</span>
+        <button type="button" data-option="Smart Scale" aria-pressed="false">Smart Scale</button><span aria-hidden="true">.</span>
+        <button type="button" data-option="BP Monitor" aria-pressed="false">BP Monitor</button><span aria-hidden="true">.</span>
+        <button type="button" data-option="Smart Flask" aria-pressed="false">Smart Flask</button>
+      </div>
+    </div>
+    <ul class="demo__grid">
+      <li class="demo-card"><button type="button" class="demo-card__media" data-open="video" aria-label="Play video: Connect in One Tap"><img src="{{img:demo-pairing}}" alt="" loading="lazy"><span class="glass how-card__tag t-body">Pairing</span><span class="glass demo-card__play"><img src="{{img:icon-play-28}}" alt=""></span></button>
+        <h2 class="t-xl">Connect in One Tap</h2><p class="t-body">Place your ring on the charger, enable Bluetooth, and sync instantly via our app.</p></li>
+      <li class="demo-card"><button type="button" class="demo-card__media" data-open="video" aria-label="Play video: Wear for Perfect Insights"><img class="demo-card__img--usage" src="{{img:demo-usage}}" alt="" loading="lazy"><span class="glass how-card__tag t-body">Basic Usage</span><span class="glass demo-card__play"><img src="{{img:icon-play-28}}" alt=""></span></button>
+        <h2 class="t-xl">Wear for Perfect Insights</h2><p class="t-body">For optimal data accuracy, wear the ring on your index finger with sensors facing down.</p></li>
+      <li class="demo-card"><button type="button" class="demo-card__media" data-open="video" aria-label="Play video: View Your Health Insights"><img src="{{img:demo-sync}}" alt="" loading="lazy"><span class="glass how-card__tag t-body">Real-Time Sync</span><span class="glass demo-card__play"><img src="{{img:icon-play-28}}" alt=""></span></button>
+        <h2 class="t-xl">View Your Health Insights</h2><p class="t-body">Open the companion app to instantly review your synchronized daily metrics and health trends.</p></li>
+      <li class="demo-card"><button type="button" class="demo-card__media" data-open="video" aria-label="Play video: Quick Connection Reset"><img class="demo-card__img--reset" src="{{img:how-basic-usage}}" alt="" loading="lazy"><span class="glass how-card__tag t-body">Troubleshooting</span><span class="glass demo-card__play"><img src="{{img:icon-play-28}}" alt=""></span></button>
+        <h2 class="t-xl">Quick Connection Reset</h2><p class="t-body">If your device disconnects, simply place it back on the charging dock to reset.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- figma: 11654:15555 Final CTA -->
+<section class="section theme-dark final-cta" aria-labelledby="demo-cta-title">
+  <img class="bg-cover" src="{{img:demo-cta}}" alt="" loading="lazy">
+  <div class="shade" style="background: rgb(0 0 0 / 0.25)" aria-hidden="true"></div>
+  <div class="shade-bottom" style="--h: 32.5rem; --a: 0.7" aria-hidden="true"></div>
+  <div class="canvas final-cta__canvas">
+    <div class="abs final-cta__copy final-cta__copy--demo">
+      <h2 id="demo-cta-title" class="t-h2">Your health ecosystem, in your hand</h2>
+      {{> glass-store-badges}}
+    </div>
+  </div>
+</section>

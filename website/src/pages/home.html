@@ -1,0 +1,134 @@
+<!-- meta title="SeeMyHealth — Empower your daily health" description="Unlock powerful insights from within your body with The Ring One, smart devices and the SeeMyHealth app." nav="dark" -->
+<!-- figma: 11654:10502 Homepage -->
+
+<!-- figma: 11654:10503 Banner -->
+<section class="section theme-dark home-hero" aria-labelledby="home-hero-title">
+  <div class="home-hero__sticky" aria-hidden="true">
+    <div class="home-hero__sticky-inner"><img src="{{img:home-hero-bg}}" alt="" fetchpriority="high"></div>
+  </div>
+  <div class="canvas home-hero__canvas">
+    <div class="abs home-hero__intro">
+      <h1 id="home-hero-title" class="t-h1">Empower your daily health</h1>
+      <p class="t-body home-hero__lede">Unlock powerful insights from within your body to live a more balanced, connected, and truly vibrant life.</p>
+      <a class="btn btn--glass" href="#product">Start Your Journey</a>
+    </div>
+
+    <a class="abs glass home-hero__product" href="#product-detail" aria-label="The Ring One — Shop now">
+      <span class="home-hero__product-media"><img src="{{img:ring-black-landscape}}" alt="The Ring One in matte black on a stand"></span>
+      <span class="home-hero__product-copy">
+        <span class="t-lg">The Ring One</span>
+        <span class="link-arrow"><span>Shop Now <img src="{{img:icon-arrow-right}}" alt=""></span></span>
+      </span>
+    </a>
+
+    <hr class="abs rule home-hero__rule">
+    <p class="abs eyebrow home-hero__eyebrow">Clarity For Your Body</p>
+    <p class="abs t-h4 home-hero__statement">Gain complete control over your wellbeing by understanding the deep biological signals your body sends every day.</p>
+
+    <ul class="abs home-stats" aria-label="SeeMyHealth in numbers">
+      <li class="glass stat-card"><p class="t-h4">99%</p><span class="icon-ring"><img src="{{img:icon-heartbeat}}" alt=""></span><hr class="rule"><p class="t-sm">Heart Rate Accuracy</p><p class="t-body t-muted-dark">Unmatched Technical Precision</p></li>
+      <li class="glass stat-card"><p class="t-h4">85%</p><span class="icon-ring"><img src="{{img:icon-bed}}" alt=""></span><hr class="rule"><p class="t-sm">Improved Sleep Quality</p><p class="t-body t-muted-dark">Real-life Wellness Impact</p></li>
+      <li class="glass stat-card"><p class="t-h4">24/7</p><span class="icon-ring"><img src="{{img:icon-alarm}}" alt=""></span><hr class="rule"><p class="t-sm">Real-time Health Monitoring</p><p class="t-body t-muted-dark">Seamless Ecosystem Integration</p></li>
+      <li class="glass stat-card"><p class="t-h4">50k+</p><span class="icon-ring"><img src="{{img:icon-users-three}}" alt=""></span><hr class="rule"><p class="t-sm">Global Active Members</p><p class="t-body t-muted-dark">Trusted Community Support</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- figma: 11654:10577 Product Showcase -->
+<section class="section theme-dark home-showcase" aria-labelledby="home-showcase-title">
+  <img class="home-showcase__bg" src="{{img:home-showcase-ring-one}}" alt="" loading="lazy">
+  <div class="shade shade--20" aria-hidden="true"></div>
+  <div class="shade-bottom" style="--h: 25.75rem; --a: 0.7" aria-hidden="true"></div>
+  <div class="canvas home-showcase__canvas">
+    <div class="abs home-showcase__copy">
+      <p class="eyebrow">Ring One</p>
+      <h2 id="home-showcase-title" class="t-h2">Sensing, made human.</h2>
+      <div class="btn-row">
+        <a class="btn btn--white" href="#product-detail">Shop Now</a>
+        <a class="btn btn--glass" href="#product">Learn More</a>
+      </div>
+    </div>
+    {{> product-tabs}}
+  </div>
+</section>
+
+<!-- figma: 11654:10614 Key Benefits -->
+<section class="section theme-light home-benefits" aria-labelledby="home-benefits-title">
+  <img class="home-benefits__paths" src="{{img:kb-circle-paths}}" alt="" aria-hidden="true">
+  <div class="canvas home-benefits__canvas">
+    <figure class="abs kb-tile kb-tile--a"><img src="{{img:home-showcase-ring-one}}" alt="Woman relaxing, wearing The Ring One" loading="lazy"></figure>
+    <figure class="abs kb-tile kb-tile--b"><img src="{{img:kb-headphones}}" alt="Headphones resting on a wooden table" loading="lazy"></figure>
+    <figure class="abs kb-tile kb-tile--c"><img src="{{img:kb-woman-sitting}}" alt="Woman sitting on the floor holding a green drink" loading="lazy"></figure>
+    <figure class="abs kb-tile kb-tile--d"><img src="{{img:kb-hands-ring}}" alt="Hands wearing a smart ring" loading="lazy"></figure>
+    <figure class="abs kb-tile kb-tile--e"><img src="{{img:kb-notebook}}" alt="Smart scale display resting on a notebook" loading="lazy"></figure>
+    <div class="abs kb-copy">
+      <p class="t-md">The Power of Prevention</p>
+      <h2 id="home-benefits-title" class="t-h3">Early Risk Detection Awareness</h2>
+    </div>
+  </div>
+</section>
+
+<!-- figma: 11654:10644 Health Tracking Features -->
+<section class="section theme-light home-tracking" aria-labelledby="home-tracking-title">
+  <div class="canvas home-tracking__canvas">
+    <h2 id="home-tracking-title" class="abs t-h2 home-tracking__title">Listen to your body’s true story.</h2>
+    <hr class="abs rule home-tracking__rule">
+    <p class="abs eyebrow home-tracking__eyebrow">Decode Your Health</p>
+    <p class="abs t-body home-tracking__count">01 <span class="t-faint">— 06</span></p>
+    <p class="abs t-body home-tracking__lede">SeeMyHealth connects your devices to provide a complete picture of your wellness and daily physical performance.</p>
+    <img class="abs home-tracking__dots" src="{{img:htf-dots}}" alt="Slide 1 of 6">
+    <figure class="abs home-tracking__thumb"><img src="{{img:htf-video-call}}" alt="Woman on a video call at her desk" loading="lazy"></figure>
+    <div class="abs slider-arrows">
+      <button class="round-btn round-btn--outline" type="button" aria-label="Previous feature"><img src="{{img:icon-arrow-left-dark}}" alt=""></button>
+      <button class="round-btn round-btn--outline" type="button" aria-label="Next feature"><img src="{{img:icon-arrow-right-dark}}" alt=""></button>
+    </div>
+    <article class="abs theme-dark home-tracking__card">
+      <img class="home-tracking__card-img" src="{{img:htf-sleep}}" alt="Woman checking sleep data on her phone in a dim living room" loading="lazy">
+      <div class="shade-bottom" style="--h: 17.25rem; --a: 0.6" aria-hidden="true"></div>
+      <span class="round-glass round-glass--lg"><img src="{{img:icon-moon}}" alt=""></span>
+      <div class="home-tracking__card-copy">
+        <p class="eyebrow">Sleep and Rest</p>
+        <hr class="rule">
+        <div class="home-tracking__card-row">
+          <h3 class="t-h6">Get the best sleep of your life</h3>
+          <p class="t-body">Understanding your sleep cycles is vital for recovery. Our integrated system tracks heart rate and oxygen levels throughout the night, providing deep insights to help you wake up feeling fully refreshed and ready to conquer.</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- figma: 11654:10689 App & Community Features -->
+<section class="section theme-dark home-community" aria-labelledby="home-community-title">
+  <img class="home-community__mesh" src="{{img:mesh-brown}}" alt="" aria-hidden="true" loading="lazy">
+  <div class="canvas home-community__canvas">
+    {{> community-body}}
+  </div>
+</section>
+
+<!-- figma: 11654:10774 Final CTA -->
+<section class="section theme-dark home-cta" aria-labelledby="home-cta-title">
+  <img class="home-cta__bg" src="{{img:cta-man-watch}}" alt="" aria-hidden="true" loading="lazy">
+  <div class="shade-top" style="--h: 54rem; --a: 0.7" aria-hidden="true"></div>
+  <div class="shade-bottom" style="--h: 18.5rem; --a: 0.7" aria-hidden="true"></div>
+  <div class="canvas home-cta__canvas">
+    <div class="abs home-cta__newsletter">
+      <h2 class="t-h6">Subscribe to our newsletter.</h2>
+      <form class="newsletter" data-form novalidate>
+        <div class="field newsletter__field">
+          <label class="sr-only" for="home-newsletter-email">Email address</label>
+          <input id="home-newsletter-email" type="email" placeholder="Enter email address" required autocomplete="email">
+          <button type="submit" aria-label="Subscribe"><img src="{{img:icon-arrow-right-32}}" alt=""></button>
+        </div>
+      </form>
+      <p class="t-body newsletter__done" data-form-done hidden>Thanks — you’re on the list.</p>
+    </div>
+    <div class="abs home-cta__copy">
+      <h2 id="home-cta-title" class="t-h1">Master your daily health in one app</h2>
+      <p class="t-body">One app for your body, your habits, your devices, and the people you love. Built for the long arc of feeling better.</p>
+      {{> glass-store-badges}}
+    </div>
+    <figure class="abs home-cta__thumb"><img src="{{img:kb-hands-ring}}" alt="Hands wearing The Ring One" loading="lazy"></figure>
+    {{> product-tabs}}
+  </div>
+</section>

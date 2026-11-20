@@ -1,0 +1,110 @@
+<!-- meta title="The SeeMyHealth App — All One Story" description="Your health, finally in one place. One app for your body, your habits, your devices, and the people you love." nav="dark" -->
+<!-- figma: 11654:14240 App Landing -->
+
+<!-- figma: 11654:14241 Hero - 20 -->
+<section class="section theme-dark app-hero" aria-labelledby="app-hero-title">
+  <img class="bg-cover" src="{{img:app-hero}}" alt="" fetchpriority="high">
+  <div class="canvas app-hero__canvas">
+    <div class="abs app-hero__copy">
+      <h1 id="app-hero-title" class="t-h1">Your health, finally in one place.</h1>
+      <p class="t-body app-hero__lede">One app for your body, your habits, your devices, and the people you love. Built for the long arc of feeling better.</p>
+      {{> glass-store-badges}}
+    </div>
+  </div>
+</section>
+
+<!-- figma: 11654:14304 Text Intro - 44 -->
+<section class="section theme-light clarity-intro" aria-label="All One Story">
+  <img class="clarity-intro__path clarity-intro__path--1" src="{{img:clarity-path-1}}" alt="" aria-hidden="true">
+  <img class="clarity-intro__path clarity-intro__path--2" src="{{img:clarity-path-2}}" alt="" aria-hidden="true">
+  <img class="clarity-intro__path clarity-intro__path--3" src="{{img:clarity-path-3}}" alt="" aria-hidden="true">
+  <p class="t-d1 clarity-intro__title">All One Story</p>
+</section>
+
+<!-- figma: 11654:14317 A Day With SeeMyHealth (first state: Morning) -->
+<section class="section theme-dark day" aria-labelledby="app-day-title">
+  <img class="day__bg" src="{{img:day-morning}}" alt="" loading="lazy">
+  <div class="shade-bottom" style="--h: 6.375rem; --a: 0.7" aria-hidden="true"></div>
+  <div class="canvas day__canvas">
+    <h2 id="app-day-title" class="abs t-h2 day__title">One day. Every dimension.</h2>
+    <p class="abs t-md day__kicker">A Day With SeeMyHealth</p>
+    <div class="abs day__read">
+      <p class="t-md">Morning Read</p>
+      <p class="t-h6">Weight, sleep, recovery. Surfaced quietly before the day takes over.</p>
+    </div>
+    <ol class="abs product-tabs day__tabs" aria-label="Times of day">
+      <li class="is-active"><span class="day__tab">07:14 — Morning</span></li>
+      <li><span class="day__tab">09:32 — Movement</span></li>
+      <li><span class="day__tab">15:41 — Mid-afternoon</span></li>
+      <li><span class="day__tab">22:47 — Wind down</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- figma: 11654:14343 What We Track -->
+<section class="section theme-light track" aria-labelledby="app-track-title">
+  <div class="track__head">
+    <p class="t-md">What We Track</p>
+    <h2 id="app-track-title" class="t-h2">Track all of you. Not just your steps.</h2>
+    <p class="t-body track__lede">From morning to midnight, every signal your body sends has a home.</p>
+  </div>
+  <ul class="track__rail">
+    <li class="track-card"><div class="track-card__media"><img style="left: calc(50% + 2.1875rem); top: calc(50% - 0.375rem); width: 56.4375rem; height: 42.25rem; transform: translate(-50%, -50%)" src="{{img:track-scale}}" alt="Woman stepping onto a smart scale in a bathroom" loading="lazy"></div><h3 class="t-lg">Step on the scale. Let the trends speak.</h3><p class="t-body">Weight, body fat, muscle mass, BMI. Tracked daily, surfaced as a trend.</p></li>
+    <li class="track-card"><div class="track-card__media"><img style="left: 50%; bottom: 0; width: 33.25rem; height: 61.1875rem; transform: translateX(-50%)" src="{{img:track-heart}}" alt="Hand wearing a ring, checking heart data on a phone" loading="lazy"></div><h3 class="t-lg">A quiet read on your heart, every day.</h3><p class="t-body">Blood pressure, resting rate, variability. Tracked at home, surfaced in the app.</p></li>
+    <li class="track-card"><div class="track-card__media"><img style="left: 50%; top: calc(50% + 0.5rem); width: 33.25rem; height: 49.875rem; transform: translate(-50%, -50%)" src="{{img:track-blood}}" alt="Woman applying a glucose sensor to her arm" loading="lazy"></div><h3 class="t-lg">Glucose, hemoglobin, oxygen. Your blood picture, at home.</h3><p class="t-body">Use Hema One to see what once required a full lab visit.</p></li>
+    <li class="track-card"><div class="track-card__media"><img style="left: 50%; bottom: 0; width: 33.25rem; height: 44.25rem; transform: translateX(-50%)" src="{{img:track-mood}}" alt="Person journaling in a calm space" loading="lazy"></div><h3 class="t-lg">A safe place to check in with yourself.</h3><p class="t-body">Track moods, write privately, notice patterns. Locked behind Face ID by default.</p></li>
+    <li class="track-card"><div class="track-card__media"><img style="left: calc(50% - 0.84375rem); top: calc(50% - 9.71875rem); width: 43rem; height: 64.5625rem; transform: translate(-50%, -50%)" src="{{img:track-cycle}}" alt="Woman relaxing, tracking her cycle" loading="lazy"></div><h3 class="t-lg">Your cycle, tracked within your full health picture.</h3><p class="t-body">Phases, symptoms, and fertility. Connected to how you sleep, move, and feel.</p></li>
+    <li class="track-card"><div class="track-card__media"><img style="left: 50%; top: calc(50% - 2.46875rem); width: 33.25rem; height: 59.1875rem; transform: translate(-50%, -50%)" src="{{img:track-activity}}" alt="Person stretching after a workout" loading="lazy"></div><h3 class="t-lg">Activity and recovery, read as one connected picture.</h3><p class="t-body">Workouts, steps, and deep sleep tracked together because they shape each other.</p></li>
+    <li class="track-card"><div class="track-card__media"><img style="left: calc(50% - 0.65625rem); top: calc(50% + 4.5625rem); width: 35.75rem; height: 53.625rem; transform: translate(-50%, -50%)" src="{{img:track-nutrition}}" alt="Healthy meal being prepared" loading="lazy"></div><h3 class="t-lg">Meals, water, fasting. Nutrition made honest and simple.</h3><p class="t-body">Barcode scanner, manual logging, a recipe library, and a full fasting planner.</p></li>
+  </ul>
+  <div class="track__controls">{{> slider-controls-white}}</div>
+</section>
+
+<!-- figma: 11654:14415 Your Data, Your Rules -->
+<section class="section theme-light home-tracking data-rules" aria-labelledby="app-data-title">
+  <div class="canvas home-tracking__canvas">
+    <div class="abs data-rules__head">
+      <p class="t-md">Your Data, Your Rules</p>
+      <h2 id="app-data-title" class="t-h2">Real care, without losing control.</h2>
+    </div>
+    <figure class="abs home-tracking__thumb data-rules__thumb"><img src="{{img:data-reading}}" alt="Man reading on a tablet in a dim living room" loading="lazy"></figure>
+    <div class="abs slider-arrows data-rules__arrows">
+      <button class="round-btn round-btn--outline" type="button" aria-label="Previous"><img src="{{img:icon-arrow-left-dark}}" alt=""></button>
+      <button class="round-btn round-btn--outline" type="button" aria-label="Next"><img src="{{img:icon-arrow-right-dark}}" alt=""></button>
+    </div>
+    <article class="abs theme-dark home-tracking__card data-rules__card">
+      <img class="data-rules__card-img" src="{{img:data-family}}" alt="Family laughing together in a kitchen" loading="lazy">
+      <div class="shade-bottom" style="--h: 20rem; --a: 0.6" aria-hidden="true"></div>
+      <span class="round-glass round-glass--lg"><img src="{{img:icon-users-three-lg}}" alt=""></span>
+      <div class="home-tracking__card-copy">
+        <p class="eyebrow">Family Sharing</p>
+        <hr class="rule">
+        <div class="home-tracking__card-row">
+          <h3 class="t-h6">Share what you want. With who you want.</h3>
+          <p class="t-body">Choose what your partner sees, what your mum sees, what your coach sees — separately. Nothing leaves your control. Update or revoke any time.</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- figma: 11654:14453 App & Community Features -->
+<section class="section theme-dark home-community" aria-labelledby="app-community-title">
+  <img class="home-community__mesh" src="{{img:mesh-brown}}" alt="" aria-hidden="true" loading="lazy">
+  <div class="canvas home-community__canvas">
+    {{> community-body}}
+  </div>
+</section>
+
+<!-- figma: 11654:14540 Become a Partner_Final CTA -->
+<section class="section theme-dark final-cta" aria-labelledby="app-cta-title">
+  <img class="final-cta__bg" src="{{img:app-cta-sofa}}" alt="" loading="lazy">
+  <div class="shade" style="background: rgb(0 0 0 / 0.25)" aria-hidden="true"></div>
+  <div class="shade-bottom" style="--h: 32.5rem; --a: 0.7" aria-hidden="true"></div>
+  <div class="canvas final-cta__canvas">
+    <div class="abs final-cta__copy">
+      <h2 id="app-cta-title" class="t-h2">This is where your health lives.</h2>
+      {{> glass-store-badges}}
+    </div>
+  </div>
+</section>
