@@ -190,6 +190,12 @@ h1, h2, h3, h4, h5, h6, p, li, dt, dd, .btn, .eyebrow, .link-arrow > span, .tb {
 .bullets { text-box: trim-both cap alphabetic; }
 .bullets li { text-box: none; }
 
+/* Lenis smooth scroll (rules from lenis.css) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
 /* ==========================================================================
    Shared components
    ========================================================================== */
@@ -230,7 +236,7 @@ h1, h2, h3, h4, h5, h6, p, li, dt, dd, .btn, .eyebrow, .link-arrow > span, .tb {
 
 /* underlined "Shop Now →" link */
 .link-arrow { display: inline-flex; flex-direction: column; gap: 0.5rem; font-size: var(--text-btn2-size); line-height: var(--text-btn2-lh); letter-spacing: var(--text-btn2-ls); font-weight: 500; }
-.link-arrow > span { display: inline-flex; align-items: center; gap: 0.75rem; }
+.link-arrow > span { display: inline-flex; align-items: center; gap: 0.75rem; white-space: nowrap; } /* CTA labels never wrap */
 .link-arrow img { width: 1.25rem; height: 1.25rem; transition: transform .2s; }
 .link-arrow::after { content: ""; height: 1px; background: currentColor; }
 .link-arrow:hover img { transform: translateX(4px); }
@@ -320,10 +326,53 @@ body.has-overlay { overflow: hidden; }
 .field__error { color: #b3261e; font-size: var(--text-caption-size); font-weight: 400; letter-spacing: 0; }
 
 /* ---------- Typescale QC switch (removed before final) ---------- */
-.ts-switch { position: fixed; right: 1rem; bottom: 1rem; z-index: 200; display: flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgb(20 20 20 / 0.85); backdrop-filter: blur(8px); font: 500 12px/1 system-ui, sans-serif; letter-spacing: 0; color: #fff; box-shadow: 0 4px 20px rgb(0 0 0 / .3); }
+.dev-panel { position: fixed; right: 1rem; bottom: 1rem; z-index: 200; display: flex; flex-direction: column; gap: 10px; width: 260px; max-height: calc(100vh - 2rem); overflow: auto; overscroll-behavior: contain; padding: 12px; border-radius: 14px; background: rgb(20 20 20 / 0.85); backdrop-filter: blur(8px); font: 500 12px/1.2 system-ui, sans-serif; letter-spacing: 0; color: #fff; box-shadow: 0 4px 20px rgb(0 0 0 / .3); }
+.dev-panel[hidden] { display: none; }
+.dev-panel__head { display: flex; justify-content: space-between; align-items: center; }
+.dev-panel__head kbd { font: inherit; opacity: .6; }
+.dev-panel__row { display: grid; grid-template-columns: 1fr auto; gap: 6px; }
+.dev-panel__row input { grid-column: 1 / -1; width: 100%; accent-color: #fff; }
+.ts-switch { display: flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgb(20 20 20 / 0.85); backdrop-filter: blur(8px); font: 500 12px/1 system-ui, sans-serif; letter-spacing: 0; color: #fff; box-shadow: 0 4px 20px rgb(0 0 0 / .3); }
 .ts-switch button { padding: 8px 12px; border-radius: 999px; opacity: .6; }
 .ts-switch button[aria-pressed="true"] { background: #fff; color: #111; opacity: 1; }
-.ts-switch kbd { font: inherit; opacity: .6; padding: 8px 8px 8px 4px; }
+
+/* Liquid glass CTA: keeps the original .btn--glass look; only the frosted blur is replaced by refraction */
+lg-button.home-hero__cta { display: inline-block; border-radius: var(--radius-pill); transition: transform .2s; }
+lg-button.home-hero__cta:hover { transform: translateY(-1px); }
+lg-button.home-hero__cta .lg-button__el { display: inline-flex; align-items: center; justify-content: center; padding: 1.5rem 3rem; border-radius: var(--radius-pill); color: var(--color-white); font-family: inherit; font-weight: 600; font-size: var(--text-btn1-size); line-height: var(--text-btn1-lh); letter-spacing: var(--text-btn1-ls); white-space: nowrap; }
+lg-button.home-hero__cta .lg-button__label { font: inherit; letter-spacing: inherit; color: inherit; }
+lg-button.home-hero__cta .lg-surface__tint { background: var(--gradient-glass-btn); box-shadow: inset 0 0 0 1px var(--color-white-10); }
+lg-button.home-hero__cta:hover .lg-surface__tint { background: linear-gradient(90deg, rgb(255 255 255 / 0.28), rgb(255 255 255 / 0.12)); }
+
+/* =========================== Entrance intro (home, first load) =========================== */
+:root { --intro-ease: cubic-bezier(.22, 1, .36, 1); }
+/* Before it plays: everything that will animate sits in its start state */
+.intro-pending [data-intro] { opacity: 0; }
+.intro-pending [data-intro="down"]  { transform: translate3d(0, -110%, 0); }
+.intro-pending [data-intro="up"]    { transform: translate3d(0, 1.5rem, 0); }
+.intro-pending [data-intro="fade"]  { transform: none; }
+.intro-pending .intro-line > span   { transform: translate3d(0, 110%, 0); }
+/* Playing: each element transitions to rest with its own --intro-delay (set in app.js) */
+.intro-play [data-intro], .intro-play .intro-line > span {
+  transition: transform .9s var(--intro-ease), opacity .9s var(--intro-ease);
+  transition-delay: var(--intro-delay, 0ms);
+}
+/* Heading lines: clip window per line. clip-path doesn't touch layout (unlike padding/margin),
+   so line height stays exactly as before; the small bottom bleed keeps descenders (y, g) visible. */
+.intro-line { display: block; clip-path: inset(-0.5em -1em -0.22em -1em); }
+.intro-line > span { display: inline-block; }
+.intro-play .intro-line > span { transition-duration: 1.1s; }
+.intro-pending .home-hero h1:not(.is-split) { visibility: hidden; } /* until split into lines */
+
+/* Heading reveal on scroll: same line-clip rise as the hero heading (app.js: initHeadingReveal) */
+.reveal-wait { visibility: hidden; }
+.reveal-ready .intro-line > span { transform: translate3d(0, 110%, 0); }
+.reveal-play .intro-line > span { transform: none; transition: transform 1.1s var(--intro-ease); transition-delay: var(--intro-delay, 0ms); }
+@media (prefers-reduced-motion: reduce) { .reveal-wait { visibility: visible; } }
+
+.dev-panel__group { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 8px; border-top: 1px solid rgb(255 255 255 / .15); }
+.dev-panel__group span { opacity: .6; font-size: 11px; }
+.dev-panel__group button { opacity: .85; text-decoration: underline; }
 
 /* ==========================================================================
    Section styles. Geometry in rem = Figma px / 16 (1728px canvas).
@@ -370,20 +419,26 @@ figure { margin: 0; }
 
 /* =========================== HOME =========================== */
 /* Banner (11654:10503) */
-.home-hero { height: 149.8125rem; background: #000; }
+.home-hero { height: 149.8125rem; background: #000; overflow: visible; z-index: 0; } /* image may hang past the bottom; next section covers it */
+.home-hero + .section { z-index: 1; }
 .home-hero__sticky { position: absolute; inset: 0 auto 0 0; pointer-events: none; }
-.home-hero__sticky-inner { position: sticky; top: 0; width: 128.875rem; height: 72.5rem; }
-.home-hero__sticky-inner img { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+.home-hero__sticky-inner { position: relative; will-change: transform; width: 128.875rem; height: 72.5rem; }
+/* Hero bg, 3 layers as in Figma "bg assets" (bottom -> top):
+   1. bg ring: black + gradient to #FFC888 at 20%   2. transparent ring webp   3. 20% black */
+.home-hero__sticky-inner { background: linear-gradient(180deg, rgb(255 200 136 / 0) 0%, rgb(255 200 136 / 0.2) 100%), #000; }
+.home-hero__sticky-inner img { position: relative; width: 100%; height: 100%; object-fit: cover; }
+.home-hero__sticky-inner::after { content: ""; position: absolute; inset: 0; background: rgb(0 0 0 / 0.2); pointer-events: none; }
 .home-hero__canvas { height: 100%; }
 .home-hero__intro { left: var(--gutter); top: 11.9375rem; width: 54.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: 4rem; }
 .home-hero__lede { width: 30.3125rem; }
-.home-hero__product { left: 74.1875rem; top: 43.75rem; width: 31.625rem; height: 11.25rem; display: block; color: var(--color-white); transition: background .2s; }
+.home-hero__product { left: 74.1875rem; top: max(41.5rem, calc(100svh - 35px - 11.25rem)); /* bottom sits 35px above the first fold; never rides up into the intro */ width: 31.625rem; height: 11.25rem; display: block; color: var(--color-white); transition: background .2s; }
+@media (max-aspect-ratio: 4/3) { .home-hero__product { top: 43.75rem; } } /* tall / square viewports: keep the Figma position */
 .home-hero__product:hover { background: var(--color-white-20); }
 .home-hero__product-media { position: absolute; left: 1rem; top: 1rem; width: 11.875rem; height: 9.25rem; border-radius: 0.62rem; overflow: hidden; }
 .home-hero__product-media img { position: absolute; left: 50%; bottom: 0.0144rem; width: 16.349rem; height: 11.235rem; max-width: none; transform: translateX(-50%); object-fit: cover; }
 .home-hero__product-copy { position: absolute; left: 15.375rem; top: 3.1875rem; display: flex; flex-direction: column; gap: 1.875rem; }
 .home-hero__product-copy .t-lg { text-box: trim-both cap alphabetic; }
-.home-hero__product .link-arrow { width: 6.1875rem; }
+.home-hero__product .link-arrow { min-width: 6.1875rem; }
 .home-hero__rule { left: var(--gutter); top: 71rem; width: 103.625rem; color: var(--color-white); }
 .home-hero__eyebrow { left: var(--gutter); top: 73.5rem; }
 .home-hero__statement { left: 45.8125rem; top: 73.5rem; width: 57.0625rem; }
@@ -395,16 +450,54 @@ figure { margin: 0; }
 .stat-card .t-body { position: absolute; left: 2rem; top: 15.625rem; }
 
 /* Product Showcase (11654:10577) */
-.home-showcase { height: var(--section-h); background: #000; }
-.home-showcase__bg { position: absolute; left: 50%; top: -12.1875rem; width: 128.25rem; height: 82.0625rem; max-width: none; transform: translateX(-50%); object-fit: cover; }
-.home-showcase__canvas { height: 100%; }
-.home-showcase__copy { left: var(--gutter); top: 35.5rem; width: 35.125rem; display: flex; flex-direction: column; align-items: flex-start; gap: 3.5rem; }
-.home-showcase .product-tabs { top: 63.4375rem; }
+.home-showcase { height: calc(var(--steps, 4) * 100svh); background: #000; overflow: visible; }
+.home-showcase__stage { position: sticky; top: 0; height: 100svh; overflow: clip; }
+/* Bgs are scrubbed by scroll from app.js (no time-based transitions): the wrapper lags while the
+   section enters (parallax), then each next image wipes up from the bottom over the current one. */
+.home-showcase__bgs { position: absolute; inset: -25svh 0; will-change: transform; } /* extra height above/below = entry + exit parallax travel */
+.home-showcase__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: clip-path, transform; }
+.home-showcase__bg:not(:first-child) { clip-path: inset(100% 0 0 0); }
+/* Copy and tabs sit on the bottom of the screen, with the Figma spacing (tabs 3.95rem up, copy 4.9rem above tabs) */
+.home-showcase__canvas { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; gap: 4.9rem; padding-bottom: 3.95rem; }
+.home-showcase__copies { position: relative; display: grid; margin-left: var(--gutter); width: 50rem; } /* wide enough for every heading to fit 2 lines */
+.home-showcase__copy h2 { text-wrap: balance; }
+/* Copy swap: the heading uses the same line-clip rise as the hero heading; eyebrow + buttons fade.
+   Forward: old lines exit up, new rise from below. Backward: mirrored. */
+.home-showcase__copy { grid-area: 1 / 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 3.5rem; pointer-events: none; }
+:is(.home-showcase__copy, .kb-point).is-active { pointer-events: auto; }
+:is(.home-showcase__copy, .kb-point) > :not(h2) { opacity: 0; transform: translate3d(0, .75rem, 0); transition: opacity .4s ease, transform .6s var(--intro-ease, ease); }
+:is(.home-showcase__copy, .kb-point).is-active > :not(h2) { opacity: 1; transform: none; transition-delay: .6s; }
+:is(.home-showcase__copy, .kb-point) h2 { visibility: hidden; }                       /* until split into lines */
+:is(.home-showcase__copy, .kb-point) h2.is-split { visibility: visible; }
+:is(.home-showcase__copy, .kb-point) .intro-line { clip-path: inset(0 -1em -0.22em -1em); } /* no top bleed: exiting lines vanish at the line edge */
+:is(.home-showcase__copy, .kb-point) .intro-line > span { transform: translate3d(0, 110%, 0); transition: transform .45s cubic-bezier(.55, 0, .75, .2); transition-delay: calc(var(--i, 0) * 40ms); }
+:is(.home-showcase__copy, .kb-point).from-above .intro-line > span { transform: translate3d(0, -110%, 0); }
+:is(.home-showcase__copy, .kb-point).is-active .intro-line > span { transform: none; transition: transform 1.1s var(--intro-ease, ease); transition-delay: calc(.45s + var(--i, 0) * 110ms); } /* starts once the old heading is out */
+:is(.home-showcase__copy, .kb-point).is-leaving .intro-line > span { transform: translate3d(0, -110%, 0); }
+:is(.home-showcase__copy, .kb-point).is-leaving-down .intro-line > span { transform: translate3d(0, 110%, 0); }
+:is(.home-showcase__copy, .kb-point).no-trans, :is(.home-showcase__copy, .kb-point).no-trans * { transition: none !important; }
+.home-showcase .product-tabs { position: relative; top: auto; left: auto; margin-left: var(--gutter); }
+.home-showcase .product-tabs li.is-active::before { width: calc(var(--p, 0) * 100%); transition: width .1s linear; }
+.home-showcase .product-tabs li { transition: opacity .3s; }
+/* Steps already passed keep a full white bar */
+.home-showcase .product-tabs li.is-done::before { content: ""; position: absolute; top: -1.5px; left: 0; width: 100%; height: 2px; background: var(--color-white); }
 
 /* Key Benefits (11654:10614) */
-.home-benefits { height: var(--section-h); }
+/* Garage-door hand-off: pulled up 100svh under the showcase (which has z-index 1), pinned for 3 screens.
+   Screen 1 = showcase lifts off it; screens 2-3 = tiles keep arriving and drifting. */
+.home-benefits { height: 450svh; margin-top: -100svh; z-index: 0; overflow: visible; }
+.home-benefits__stage { position: sticky; top: 0; height: 100svh; overflow: clip; background: inherit; }
 .home-benefits__paths { position: absolute; left: calc(50% - 54rem - 5.6603rem); bottom: -0.0938rem; width: 115.9rem; height: 52.03rem; max-width: none; }
-.home-benefits__canvas { height: 100%; }
+.home-benefits__canvas { position: absolute; left: 50%; top: 50%; height: var(--section-h); transform: translate(-50%, -50%); } /* Figma frame centred in the screen */
+/* Floating photos: side lanes left/right of the centred copy (copy column is canvas 26-82rem).
+   Each starts just below the screen; app.js moves it up at its own speed. Sizes/crops stay Figma's. */
+.kb-float { position: absolute; inset: 0; pointer-events: none; }
+.kb-float .kb-tile { position: absolute; top: 0; will-change: transform; transform: translate3d(0, 110vh, 0); }
+.kb-float .kb-tile--d { left: calc(50% - 54rem + 6rem); }      /* 1: left lane */
+.kb-float .kb-tile--e { left: calc(50% - 54rem + 83rem); }     /* 2: right lane, bleeds off the edge */
+.kb-float .kb-tile--c { left: calc(50% - 54rem + 4rem); }      /* 3: left lane */
+.kb-float .kb-tile--b { left: calc(50% - 54rem + 83.4rem); }   /* 4: right lane */
+.kb-float .kb-tile--a { left: calc(50% - 54rem - 1rem); }      /* 5: left lane */
 .kb-tile { border-radius: var(--radius-md); overflow: hidden; background: #fff; }
 .kb-tile img { position: absolute; max-width: none; object-fit: cover; }
 .kb-tile--a { left: 41.35rem; top: 5rem; width: 25.3321rem; height: 16.375rem; background: #000; }
@@ -418,25 +511,58 @@ figure { margin: 0; }
 .kb-tile--d img { left: -0.0625rem; top: -0.5rem; width: 14.625rem; height: 19.5rem; }
 .kb-tile--e { left: 5.0625rem; top: 45.25rem; width: 31rem; height: 21.5625rem; }
 .kb-tile--e img { left: -13.5625rem; top: -5.5rem; width: 58.125rem; height: 32.625rem; }
-.kb-copy { left: 25.875rem; top: 27.375rem; width: 56.25rem; text-align: center; }
+.kb-copy { left: 25.875rem; top: 50%; width: 56.25rem; text-align: center; transform: translateY(-50%); z-index: 1; display: grid; } /* always dead centre; 3 points stacked */
+.kb-point { grid-area: 1 / 1; align-self: center; pointer-events: none; }
+.kb-point h2 { text-wrap: balance; }
 .kb-copy .t-md { margin-left: 1.5rem; }
 .kb-copy .t-h3 { margin-top: 2.5rem; }
 
 /* Health Tracking Features (11654:10644) */
-.home-tracking { height: 96.0625rem; }
+/* The slider block (rule -> card bottom + gutter) fills exactly one screen:
+   9.5rem header row + card + gutter = 100svh. Section = title area above + that screen + Figma space below. */
+.home-tracking { --track-card-h: calc(100svh - 9.5rem - var(--gutter)); height: calc(27.6875rem + 100svh + 10.3125rem); }
 .home-tracking__canvas { height: 100%; }
 .home-tracking__title { left: 37.0625rem; top: 12.5rem; width: 44.375rem; }
 .home-tracking__rule { left: var(--gutter); top: 27.6875rem; width: 103.625rem; }
 .home-tracking__eyebrow { left: var(--gutter); top: 29.6875rem; }
 .home-tracking__count { left: 37.0625rem; top: 29.6875rem; }
 .home-tracking__lede { left: 45.6875rem; top: 29.6875rem; width: 25.1875rem; }
-.home-tracking__dots { left: 96.0625rem; top: 29.625rem; width: 9.75rem; height: 1.625rem; }
+.home-tracking__dots { left: 96.0625rem; top: 29.625rem; width: 9.75rem; height: 1.625rem; display: flex; align-items: center; justify-content: space-between; }
+/* Dots: the active one sits in a ring whose dark arc fills while the article is on (autoplay timer). */
+@property --ring { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+@keyframes track-ring { from { --ring: 0%; } to { --ring: 100%; } }
+.home-tracking__dots button { position: relative; width: .375rem; height: .375rem; border-radius: 50%; background: #b5b0ac; transition: background .3s; }
+.home-tracking__dots button::before { content: ""; position: absolute; inset: -.6875rem; border-radius: 50%; opacity: 0; transition: opacity .3s;
+  background: conic-gradient(#1a1a1a var(--ring), #b5b0ac 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px)); mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px)); }
+.home-tracking__dots button.is-active { background: #1a1a1a; }
+.home-tracking__dots button.is-active::before { opacity: 1; animation: track-ring var(--track-dur, 6s) linear forwards; }
+.home-tracking.is-paused .home-tracking__dots button.is-active::before { animation-play-state: paused; }
+/* Slides: stacked in the card, crossfade with a slight zoom; copy fades up after the image */
+.home-tracking__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease; pointer-events: none; }
+.home-tracking__slide.is-active { opacity: 1; pointer-events: auto; }
+.home-tracking__slide .home-tracking__card-img { transform: scale(1.06); transition: transform 1.4s var(--intro-ease, ease); }
+.home-tracking__slide.is-active .home-tracking__card-img { transform: none; }
+/* Copy: heading + paragraph use the same line-clip rise as the other headings; icon, eyebrow and rule fade. */
+.home-tracking__slide .round-glass, .home-tracking__slide .eyebrow, .home-tracking__slide .rule { opacity: 0; transform: translate3d(0, 1rem, 0); transition: opacity .5s ease, transform .7s var(--intro-ease, ease); }
+.home-tracking__slide.is-active .round-glass, .home-tracking__slide.is-active .eyebrow, .home-tracking__slide.is-active .rule { opacity: 1; transform: none; transition-delay: .25s; }
+.home-tracking__slide :is(.t-h6, .t-body) { visibility: hidden; }            /* until split into lines */
+.home-tracking__slide :is(.t-h6, .t-body).is-split { visibility: visible; }
+.home-tracking__slide .intro-line { clip-path: inset(0 -1em -0.22em -1em); }
+.home-tracking__slide .intro-line > span { transform: translate3d(0, 110%, 0); transition: transform .45s cubic-bezier(.55, 0, .75, .2); transition-delay: calc(var(--i, 0) * 40ms); }
+.home-tracking__slide.is-active .intro-line > span { transform: none; transition: transform 1.1s var(--intro-ease, ease); transition-delay: calc(.35s + var(--i, 0) * 90ms); }
+.home-tracking__slide.is-active .t-body .intro-line > span { transition-delay: calc(.5s + var(--i, 0) * 60ms); }   /* paragraph follows the heading */
+.home-tracking__slide.is-leaving .intro-line > span { transform: translate3d(0, -110%, 0); }
+.home-tracking__slide.no-trans, .home-tracking__slide.no-trans * { transition: none !important; }
+.home-tracking__thumb { padding: 0; cursor: pointer; }
+.home-tracking__thumb img { opacity: 0; transition: opacity .6s ease; }
+.home-tracking__thumb img.is-active { opacity: 1; }
 .home-tracking__thumb { left: var(--gutter); top: 37.1875rem; width: 33.875rem; height: 22.75rem; border-radius: 1.2936rem; overflow: hidden; background: #fffbf8; }
 .home-tracking__thumb img { position: absolute; left: -7.4375rem; top: -3.6875rem; width: 42.875rem; height: 28.375rem; max-width: none; object-fit: cover; }
 .home-tracking .slider-arrows { left: var(--gutter); top: 63.4375rem; }
-.home-tracking__card { left: 37.0625rem; top: 37.1875rem; width: 68.75rem; height: 46.375rem; border-radius: var(--radius-md); overflow: hidden; background: #fffbf8; }
-.home-tracking__card-img { position: absolute; left: 0; top: -1.1875rem; width: 73.3125rem; height: 48.875rem; max-width: none; object-fit: cover; }
-.home-tracking__card-copy { position: absolute; left: 3rem; top: 29.125rem; width: 62.75rem; display: flex; flex-direction: column; gap: 2rem; }
+.home-tracking__card { left: 37.0625rem; top: 37.1875rem; width: 68.75rem; height: var(--track-card-h); border-radius: var(--radius-md); overflow: hidden; background: #fffbf8; }
+.home-tracking__card-img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.home-tracking__card-copy { position: absolute; left: 3rem; bottom: 4.2rem; /* anchored to the card bottom so it follows the card height */ width: 62.75rem; display: flex; flex-direction: column; gap: 2rem; }
 .home-tracking__card-row { display: flex; align-items: flex-start; }
 .home-tracking__card-row .t-h6 { width: 23.5rem; }
 .home-tracking__card-row .t-body { width: 23.9375rem; margin-left: 12.3125rem; }
@@ -1058,3 +1184,12 @@ figure { margin: 0; }
 .faq-item__a { padding-bottom: 0; margin-bottom: 2.75rem; }
 .legal { grid-template-columns: 12.375rem 40.5rem; column-gap: 22.5625rem; }
 .legal__toc ul { padding-left: 1.5rem; }
+
+/* Hero parallax on the browser's scroll timeline (values set from app.js) */
+@keyframes home-hero-par { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, var(--par-shift, 0px), 0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero__sticky-inner.is-native-parallax {
+    animation: home-hero-par linear both;
+    animation-timeline: scroll(root block);
+  }
+}

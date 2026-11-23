@@ -10,7 +10,7 @@
     <div class="abs home-hero__intro">
       <h1 id="home-hero-title" class="t-h1">Empower your daily health</h1>
       <p class="t-body home-hero__lede">Unlock powerful insights from within your body to live a more balanced, connected, and truly vibrant life.</p>
-      <a class="btn btn--glass" href="#product">Start Your Journey</a>
+      <lg-button class="home-hero__cta" href="#product" backdrop=".home-hero__sticky-inner img" refraction="60" bezel="0.65" curvature="6" ior="2" chroma="0.03" blur="1" specular="0.5" specular-width="1.5" light-angle="180">Start Your Journey</lg-button>
     </div>
 
     <a class="abs glass home-hero__product" href="#product-detail" aria-label="The Ring One — Shop now">
@@ -35,63 +35,188 @@
 </section>
 
 <!-- figma: 11654:10577 Product Showcase -->
-<section class="section theme-dark home-showcase" aria-labelledby="home-showcase-title">
-  <img class="home-showcase__bg" src="{{img:home-showcase-ring-one}}" alt="" loading="lazy">
-  <div class="shade shade--20" aria-hidden="true"></div>
-  <div class="shade-bottom" style="--h: 25.75rem; --a: 0.7" aria-hidden="true"></div>
-  <div class="canvas home-showcase__canvas">
-    <div class="abs home-showcase__copy">
-      <p class="eyebrow">Ring One</p>
-      <h2 id="home-showcase-title" class="t-h2">Sensing, made human.</h2>
-      <div class="btn-row">
-        <a class="btn btn--white" href="#product-detail">Shop Now</a>
-        <a class="btn btn--glass" href="#product">Learn More</a>
-      </div>
+<section class="section theme-dark home-showcase" aria-labelledby="home-showcase-title" style="--steps: 4">
+  <!-- Scroll-driven: the section is N screens tall; the stage sticks for 100svh and swaps content per step (app.js) -->
+  <div class="home-showcase__stage">
+    <div class="home-showcase__bgs" aria-hidden="true">
+      <img class="home-showcase__bg is-active" src="{{img:home-showcase-ring-one}}" alt="" loading="eager" data-step="0">
+      <img class="home-showcase__bg" src="{{img:day-morning}}" alt="" loading="lazy" data-step="1">
+      <img class="home-showcase__bg" src="{{img:data-reading}}" alt="" loading="lazy" data-step="2">
+      <img class="home-showcase__bg" src="{{img:kb-woman-sitting}}" alt="" loading="lazy" data-step="3">
     </div>
-    {{> product-tabs}}
+    <div class="shade shade--20" aria-hidden="true"></div>
+    <div class="shade-bottom" style="--h: 25.75rem; --a: 0.7" aria-hidden="true"></div>
+    <div class="canvas home-showcase__canvas">
+      <div class="home-showcase__copies" aria-live="polite">
+        <div class="home-showcase__copy is-active" data-step="0">
+          <p class="eyebrow">Ring One</p>
+          <h2 id="home-showcase-title" class="t-h2">Sensing, made human.</h2>
+          <div class="btn-row">
+            <a class="btn btn--white" href="#product-detail">Shop Now</a>
+            <a class="btn btn--glass" href="#product">Learn More</a>
+          </div>
+        </div>
+        <div class="home-showcase__copy" data-step="1" aria-hidden="true">
+          <p class="eyebrow">Smart Scale</p>
+          <h2 class="t-h2">Every morning, a clearer picture.</h2>
+          <div class="btn-row">
+            <a class="btn btn--white" href="#product-detail" tabindex="-1">Shop Now</a>
+            <a class="btn btn--glass" href="#product-detail" tabindex="-1">Learn More</a>
+          </div>
+        </div>
+        <div class="home-showcase__copy" data-step="2" aria-hidden="true">
+          <p class="eyebrow">BP Monitor</p>
+          <h2 class="t-h2">Pressure, put in context.</h2>
+          <div class="btn-row">
+            <a class="btn btn--white" href="#product-detail" tabindex="-1">Shop Now</a>
+            <a class="btn btn--glass" href="#product-detail" tabindex="-1">Learn More</a>
+          </div>
+        </div>
+        <div class="home-showcase__copy" data-step="3" aria-hidden="true">
+          <p class="eyebrow">Smart Flask</p>
+          <h2 class="t-h2">Hydration that keeps count.</h2>
+          <div class="btn-row">
+            <a class="btn btn--white" href="#product-detail" tabindex="-1">Shop Now</a>
+            <a class="btn btn--glass" href="#product-detail" tabindex="-1">Learn More</a>
+          </div>
+        </div>
+      </div>
+      {{> product-tabs}}
+    </div>
   </div>
 </section>
 
 <!-- figma: 11654:10614 Key Benefits -->
 <section class="section theme-light home-benefits" aria-labelledby="home-benefits-title">
+  <!-- Sits under the showcase (negative margin) so the showcase lifts off it like a garage door.
+       Stage is pinned: copy stays centred. Photos float past in the side lanes, entering from the bottom
+       one at a time and leaving through the top, each at its own speed (app.js). -->
+  <div class="home-benefits__stage">
   <img class="home-benefits__paths" src="{{img:kb-circle-paths}}" alt="" aria-hidden="true">
+  <div class="kb-float">
+    <figure class="kb-tile kb-tile--d"><img src="{{img:kb-hands-ring}}" alt="Hands wearing a smart ring" loading="lazy"></figure>
+    <figure class="kb-tile kb-tile--e"><img src="{{img:kb-notebook}}" alt="Smart scale display resting on a notebook" loading="lazy"></figure>
+    <figure class="kb-tile kb-tile--c"><img src="{{img:kb-woman-sitting}}" alt="Headphones resting on a wooden table" loading="lazy"></figure>
+    <figure class="kb-tile kb-tile--b"><img src="{{img:kb-headphones}}" alt="Woman relaxing at home" loading="lazy"></figure>
+    <figure class="kb-tile kb-tile--a"><img src="{{img:home-showcase-ring-one}}" alt="Woman relaxing, wearing The Ring One" loading="lazy"></figure>
+  </div>
   <div class="canvas home-benefits__canvas">
-    <figure class="abs kb-tile kb-tile--a"><img src="{{img:home-showcase-ring-one}}" alt="Woman relaxing, wearing The Ring One" loading="lazy"></figure>
-    <figure class="abs kb-tile kb-tile--b"><img src="{{img:kb-headphones}}" alt="Headphones resting on a wooden table" loading="lazy"></figure>
-    <figure class="abs kb-tile kb-tile--c"><img src="{{img:kb-woman-sitting}}" alt="Woman sitting on the floor holding a green drink" loading="lazy"></figure>
-    <figure class="abs kb-tile kb-tile--d"><img src="{{img:kb-hands-ring}}" alt="Hands wearing a smart ring" loading="lazy"></figure>
-    <figure class="abs kb-tile kb-tile--e"><img src="{{img:kb-notebook}}" alt="Smart scale display resting on a notebook" loading="lazy"></figure>
-    <div class="abs kb-copy">
-      <p class="t-md">The Power of Prevention</p>
-      <h2 id="home-benefits-title" class="t-h3">Early Risk Detection Awareness</h2>
+    <div class="abs kb-copy" aria-live="polite">
+      <div class="kb-point is-active" data-step="0">
+        <p class="t-md">The Power of Prevention</p>
+        <h2 id="home-benefits-title" class="t-h3">Early Risk Detection Awareness</h2>
+      </div>
+      <div class="kb-point" data-step="1" aria-hidden="true">
+        <p class="t-md">Unified Health Tracking Experience</p>
+        <h2 class="t-h3">One Seamless Integrated Ecosystem</h2>
+      </div>
+      <div class="kb-point" data-step="2" aria-hidden="true">
+        <p class="t-md">Data Driven Healthy Lifestyle</p>
+        <h2 class="t-h3">Actionable Long Term Trend Visibility</h2>
+      </div>
     </div>
+  </div>
   </div>
 </section>
 
 <!-- figma: 11654:10644 Health Tracking Features -->
-<section class="section theme-light home-tracking" aria-labelledby="home-tracking-title">
+<section class="section theme-light home-tracking" aria-labelledby="home-tracking-title" data-slider>
   <div class="canvas home-tracking__canvas">
     <h2 id="home-tracking-title" class="abs t-h2 home-tracking__title">Listen to your body’s true story.</h2>
     <hr class="abs rule home-tracking__rule">
     <p class="abs eyebrow home-tracking__eyebrow">Decode Your Health</p>
-    <p class="abs t-body home-tracking__count">01 <span class="t-faint">— 06</span></p>
+    <p class="abs t-body home-tracking__count"><span data-count>01</span> <span class="t-faint">— 06</span></p>
     <p class="abs t-body home-tracking__lede">SeeMyHealth connects your devices to provide a complete picture of your wellness and daily physical performance.</p>
-    <img class="abs home-tracking__dots" src="{{img:htf-dots}}" alt="Slide 1 of 6">
-    <figure class="abs home-tracking__thumb"><img src="{{img:htf-video-call}}" alt="Woman on a video call at her desk" loading="lazy"></figure>
+    <div class="abs home-tracking__dots" role="group" aria-label="Choose article"><button type="button" class="is-active" data-dot="0" aria-label="Article 1"></button><button type="button" class="" data-dot="1" aria-label="Article 2"></button><button type="button" class="" data-dot="2" aria-label="Article 3"></button><button type="button" class="" data-dot="3" aria-label="Article 4"></button><button type="button" class="" data-dot="4" aria-label="Article 5"></button><button type="button" class="" data-dot="5" aria-label="Article 6"></button></div>
+    <button class="abs home-tracking__thumb" type="button" data-next aria-label="Next article">
+      <img class="is-active" data-thumb="0" src="{{img:data-reading}}" alt="" loading="lazy">
+      <img class="" data-thumb="1" src="{{img:day-morning}}" alt="" loading="lazy">
+      <img class="" data-thumb="2" src="{{img:htf-video-call}}" alt="" loading="lazy">
+      <img class="" data-thumb="3" src="{{img:demo-usage}}" alt="" loading="lazy">
+      <img class="" data-thumb="4" src="{{img:demo-sync}}" alt="" loading="lazy">
+      <img class="" data-thumb="5" src="{{img:htf-sleep}}" alt="" loading="lazy">
+    </button>
     <div class="abs slider-arrows">
-      <button class="round-btn round-btn--outline" type="button" aria-label="Previous feature"><img src="{{img:icon-arrow-left-dark}}" alt=""></button>
-      <button class="round-btn round-btn--outline" type="button" aria-label="Next feature"><img src="{{img:icon-arrow-right-dark}}" alt=""></button>
+      <button class="round-btn round-btn--outline" type="button" data-prev aria-label="Previous article"><img src="{{img:icon-arrow-left-dark}}" alt=""></button>
+      <button class="round-btn round-btn--outline" type="button" data-next aria-label="Next article"><img src="{{img:icon-arrow-right-dark}}" alt=""></button>
     </div>
-    <article class="abs theme-dark home-tracking__card">
-      <img class="home-tracking__card-img" src="{{img:htf-sleep}}" alt="Woman checking sleep data on her phone in a dim living room" loading="lazy">
-      <div class="shade-bottom" style="--h: 17.25rem; --a: 0.6" aria-hidden="true"></div>
-      <span class="round-glass round-glass--lg"><img src="{{img:icon-moon}}" alt=""></span>
-      <div class="home-tracking__card-copy">
-        <p class="eyebrow">Sleep and Rest</p>
-        <hr class="rule">
-        <div class="home-tracking__card-row">
-          <h3 class="t-h6">Get the best sleep of your life</h3>
-          <p class="t-body">Understanding your sleep cycles is vital for recovery. Our integrated system tracks heart rate and oxygen levels throughout the night, providing deep insights to help you wake up feeling fully refreshed and ready to conquer.</p>
+    <article class="abs theme-dark home-tracking__card" aria-live="polite">
+      <div class="home-tracking__slide is-active" data-slide="0">
+        <img class="home-tracking__card-img" src="{{img:htf-sleep}}" alt="Woman checking sleep data on her phone in a dim living room" loading="lazy">
+        <div class="shade-bottom" style="--h: 17.25rem; --a: 0.6" aria-hidden="true"></div>
+        <span class="round-glass round-glass--lg"><img src="{{img:icon-moon}}" alt=""></span>
+        <div class="home-tracking__card-copy">
+          <p class="eyebrow">Sleep and Rest</p>
+          <hr class="rule">
+          <div class="home-tracking__card-row">
+            <h3 class="t-h6">Get the best sleep of your life</h3>
+            <p class="t-body">Understanding your sleep cycles is vital for recovery. Our integrated system tracks heart rate and oxygen levels throughout the night, providing deep insights to help you wake up feeling fully refreshed and ready to conquer.</p>
+          </div>
+        </div>
+      </div>
+      <div class="home-tracking__slide" data-slide="1" aria-hidden="true">
+        <img class="home-tracking__card-img" src="{{img:data-reading}}" alt="Person reading their health data at home" loading="lazy">
+        <div class="shade-bottom" style="--h: 17.25rem; --a: 0.6" aria-hidden="true"></div>
+        <span class="round-glass round-glass--lg"><img src="{{img:icon-heartbeat-w}}" alt=""></span>
+        <div class="home-tracking__card-copy">
+          <p class="eyebrow">Heart Health</p>
+          <hr class="rule">
+          <div class="home-tracking__card-row">
+            <h3 class="t-h6">Know your heart, beat by beat</h3>
+            <p class="t-body">Continuous heart rate and HRV tracking spots changes long before you feel them. See trends across days and weeks, and get a gentle nudge when something looks out of the ordinary.</p>
+          </div>
+        </div>
+      </div>
+      <div class="home-tracking__slide" data-slide="2" aria-hidden="true">
+        <img class="home-tracking__card-img" src="{{img:day-morning}}" alt="Morning stretch at home" loading="lazy">
+        <div class="shade-bottom" style="--h: 17.25rem; --a: 0.6" aria-hidden="true"></div>
+        <span class="round-glass round-glass--lg"><img src="{{img:icon-sneaker}}" alt=""></span>
+        <div class="home-tracking__card-copy">
+          <p class="eyebrow">Daily Activity</p>
+          <hr class="rule">
+          <div class="home-tracking__card-row">
+            <h3 class="t-h6">Move more, without thinking about it</h3>
+            <p class="t-body">Steps, active minutes and calories add up quietly in the background. Smart reminders help you break up long sitting sessions and keep a steady rhythm through the day.</p>
+          </div>
+        </div>
+      </div>
+      <div class="home-tracking__slide" data-slide="3" aria-hidden="true">
+        <img class="home-tracking__card-img" src="{{img:htf-video-call}}" alt="Woman on a video call at her desk" loading="lazy">
+        <div class="shade-bottom" style="--h: 17.25rem; --a: 0.6" aria-hidden="true"></div>
+        <span class="round-glass round-glass--lg"><img src="{{img:icon-mindfulness}}" alt=""></span>
+        <div class="home-tracking__card-copy">
+          <p class="eyebrow">Stress and Recovery</p>
+          <hr class="rule">
+          <div class="home-tracking__card-row">
+            <h3 class="t-h6">Find calm in the numbers</h3>
+            <p class="t-body">Your body shows stress before your mind admits it. Track recovery from skin temperature and HRV, then follow short breathing sessions designed to bring you back to baseline.</p>
+          </div>
+        </div>
+      </div>
+      <div class="home-tracking__slide" data-slide="4" aria-hidden="true">
+        <img class="home-tracking__card-img" src="{{img:demo-usage}}" alt="Person using a smart scale" loading="lazy">
+        <div class="shade-bottom" style="--h: 17.25rem; --a: 0.6" aria-hidden="true"></div>
+        <span class="round-glass round-glass--lg"><img src="{{img:icon-weight}}" alt=""></span>
+        <div class="home-tracking__card-copy">
+          <p class="eyebrow">Body Composition</p>
+          <hr class="rule">
+          <div class="home-tracking__card-row">
+            <h3 class="t-h6">See progress beyond the scale</h3>
+            <p class="t-body">Weight is only part of the story. Track body fat, muscle mass and hydration together, and watch how small daily habits reshape your long-term trends.</p>
+          </div>
+        </div>
+      </div>
+      <div class="home-tracking__slide" data-slide="5" aria-hidden="true">
+        <img class="home-tracking__card-img" src="{{img:demo-sync}}" alt="Blood pressure reading syncing to the app" loading="lazy">
+        <div class="shade-bottom" style="--h: 17.25rem; --a: 0.6" aria-hidden="true"></div>
+        <span class="round-glass round-glass--lg"><img src="{{img:icon-blood-pressure}}" alt=""></span>
+        <div class="home-tracking__card-copy">
+          <p class="eyebrow">Blood Pressure</p>
+          <hr class="rule">
+          <div class="home-tracking__card-row">
+            <h3 class="t-h6">Stay ahead of the pressure</h3>
+            <p class="t-body">Regular readings from the BP Monitor sync straight into your timeline. Spot patterns around sleep, stress and activity, and share a clear report with your doctor in one tap.</p>
+          </div>
         </div>
       </div>
     </article>
